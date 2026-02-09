@@ -344,11 +344,79 @@
   };
 
   // ===========================================
+  // Mobile Navigation Toggle
+  // ===========================================
+  const MobileNav = {
+    btn: null,
+    dropdown: null,
+    isOpen: false,
+
+    init() {
+      this.btn = document.getElementById('mobile-menu-btn');
+      this.dropdown = document.getElementById('mobile-nav-dropdown');
+      if (!this.btn || !this.dropdown) return;
+
+      this.btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.toggle();
+      });
+
+      // Close when clicking nav links
+      this.dropdown.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => this.close());
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (this.isOpen && !this.btn.contains(e.target) && !this.dropdown.contains(e.target)) {
+          this.close();
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isOpen) this.close();
+      });
+
+      // Close on scroll
+      let scrollTimer;
+      window.addEventListener('scroll', () => {
+        if (this.isOpen) {
+          clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(() => this.close(), 100);
+        }
+      }, { passive: true });
+    },
+
+    toggle() {
+      this.isOpen = !this.isOpen;
+      this.dropdown.classList.toggle('is-open', this.isOpen);
+      this.btn.setAttribute('aria-expanded', String(this.isOpen));
+      const icon = this.btn.querySelector('i');
+      if (icon) {
+        icon.className = this.isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      }
+    },
+
+    close() {
+      if (!this.isOpen) return;
+      this.isOpen = false;
+      this.dropdown.classList.remove('is-open');
+      this.btn.setAttribute('aria-expanded', 'false');
+      const icon = this.btn.querySelector('i');
+      if (icon) {
+        icon.className = 'fa-solid fa-bars';
+      }
+    }
+  };
+
+  // ===========================================
   // Initialize
   // ===========================================
   function init() {
     CustomCursor.init();
     SplitPaneInteraction.init();
+    MobileNav.init();
     ScrollReveal.init();
     MagneticButtons.init();
     TiltEffect.init();

@@ -281,17 +281,22 @@ body.hover-link .cursor-outline {
     contain: layout style;
 }
 
-/* Mobile: Full width, no skew, equal height */
+/* Mobile: Full width, no skew */
 @media (max-width: 767px) {
     .split-pane {
         width: 100%;
-        height: 50vh;
-        height: 50dvh;
+        min-height: 50vh;
+        min-height: 50dvh;
+        height: auto;
         transform: skewX(0);
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
     }
 }
+
+/* Content Un-Skew Logic */
+
 
 /* Content Un-Skew Logic */
 .split-content-inner {
@@ -299,17 +304,47 @@ body.hover-link .cursor-outline {
     width: 100vw;
     height: 100%;
     margin-left: -20vw;
-    padding-right: 15vw; /* Ensure content isn't cut off on right */
     position: relative;
     display: flex;
     align-items: center;
+}
+
+/* Desktop/Tablet Specific Side Handling */
+@media (min-width: 768px) {
+    /* Left Pane (Food) */
+    .split-pane[data-side="food"] .split-content-inner {
+        padding-left: 30vw; /* Push content away from left edge (-20+30=10vw visible start) */
+        justify-content: flex-start;
+    }
+
+    /* Right Pane (Tech) */
+    .split-pane[data-side="tech"] .split-content-inner {
+        /* Starts from -20vw relative to 50vw start = 30vw screen pos */
+        /* Padding 20vw = 50vw screen pos (center line) */
+        padding-left: 20vw; 
+        justify-content: flex-start; 
+    }
+    
+    /* Tech Content Constraint */
+    .split-pane[data-side="tech"] .split-content-inner > div {
+        max-width: 38vw; /* Reduce width to be absolutely safe from clipping */
+        margin-right: 5vw; /* Add significant buffer from right edge */
+        width: 100%;
+    }
 }
 
 /* Tablet Optimizations (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
     .split-content-inner {
         margin-left: -15vw;
-        padding-right: 10vw;
+    }
+    
+    .split-pane[data-side="food"] .split-content-inner {
+        padding-left: 25vw;
+    }
+
+    .split-pane[data-side="tech"] .split-content-inner {
+        padding-left: 20vw;
     }
 }
 
@@ -321,6 +356,7 @@ body.hover-link .cursor-outline {
         margin-left: 0;
         padding: 2rem 1.5rem;
         align-items: flex-start;
+        justify-content: center;
     }
 }
 
@@ -989,4 +1025,209 @@ body.hover-link .cursor-outline {
 #scroll-to-top:hover {
     transform: translateY(-4px) scale(1.1);
     box-shadow: 0 8px 30px rgba(234, 88, 12, 0.6) !important;
+}
+
+/* ===========================================
+   Mobile Navigation Menu
+   =========================================== */
+.mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu-btn:active {
+    transform: scale(0.92);
+}
+
+.mobile-nav-dropdown {
+    position: fixed;
+    top: 66px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    z-index: 49;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth), visibility 0.3s;
+    width: calc(100% - 2rem);
+    max-width: 320px;
+}
+
+.mobile-nav-dropdown.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.mobile-nav-dropdown .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+}
+
+.mobile-nav-dropdown .nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-dropdown .nav-links a:hover,
+.mobile-nav-dropdown .nav-links a:active {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+/* ===========================================
+   Responsive Scroll-to-Top
+   =========================================== */
+@media (max-width: 639px) {
+    #scroll-to-top {
+        bottom: 20px !important;
+        right: 16px !important;
+        width: 46px !important;
+        height: 46px !important;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+    #scroll-to-top {
+        bottom: 28px !important;
+        right: 24px !important;
+        width: 50px !important;
+        height: 50px !important;
+    }
+}
+
+/* ===========================================
+   Mobile Card & Section Refinements
+   =========================================== */
+@media (max-width: 639px) {
+    /* Feature & Stack cards: tighter padding on small screens */
+    #features .neo-glass {
+        padding: 1.5rem;
+    }
+
+    #stack .neo-glass {
+        padding: 1.25rem;
+    }
+
+    /* Timeline: tighter spacing on small phones */
+    #timeline .border-l-2 {
+        padding-left: 1.5rem;
+    }
+
+    #timeline article > div:first-child {
+        width: 0.875rem;
+        height: 0.875rem;
+        left: -25px !important;
+    }
+
+    #timeline .space-y-12 > :not([hidden]) ~ :not([hidden]) {
+        margin-top: 2rem;
+    }
+}
+
+/* ===========================================
+   Tablet Refinements (768px - 1024px)
+   =========================================== */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #features .neo-glass {
+        padding: 1.75rem;
+    }
+}
+
+/* ===========================================
+   Ultra-wide Screen Containment
+   =========================================== */
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1400px;
+    }
+}
+
+/* ===========================================
+   Mobile Hero Specific Fixes
+   =========================================== */
+@media (max-width: 767px) {
+    /* Ensure hero panes have proper content spacing */
+    .split-pane[data-side="food"] .split-content-inner {
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+    }
+
+    .split-pane[data-side="tech"] .split-content-inner {
+        padding-top: 2rem;
+        padding-bottom: 3.5rem;
+    }
+
+    /* Fix scanline on mobile */
+    .scanline-bar {
+        transform: skewX(0);
+    }
+
+    /* Architecture section images: full bleed */
+    #architecture img {
+        border-radius: 0.75rem;
+    }
+}
+
+/* ===========================================
+   Small Phone Refinements (< 375px)
+   =========================================== */
+@media (max-width: 374px) {
+    .split-content-inner {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .magnetic-btn {
+        padding: 0.625rem 1rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Smaller hero icon on tiny phones */
+    .split-pane .w-14 {
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+}
+
+/* ===========================================
+   Touch Device: Disable hover-dependent effects
+   =========================================== */
+@media (hover: none) {
+    .card-hover-effect:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .card-hover-effect:active {
+        transform: scale(0.98);
+        transition-duration: 0.15s;
+    }
 }

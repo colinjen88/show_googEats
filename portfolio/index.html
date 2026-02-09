@@ -73,10 +73,10 @@
 
     <!-- Navigation -->
     <header>
-        <nav class="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none" aria-label="主要導覽">
+        <nav class="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center pointer-events-none" aria-label="主要導覽">
             <div
-                class="neo-glass px-6 py-3 rounded-full flex items-center gap-8 pointer-events-auto transition-all hover:bg-black/80 backdrop-blur-xl">
-                <a href="/" class="font-display font-bold text-lg text-white group" aria-label="首頁">
+                class="neo-glass px-4 sm:px-6 py-2.5 sm:py-3 rounded-full flex items-center gap-3 sm:gap-8 pointer-events-auto transition-all hover:bg-black/80 backdrop-blur-xl">
+                <a href="/" class="font-display font-bold text-base sm:text-lg text-white group" aria-label="首頁">
                     G<span class="text-gold group-hover:animate-pulse">.</span>Eats
                 </a>
                 <div class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
@@ -86,6 +86,9 @@
                     <a href="#features" class="hover:text-white transition-colors underline-animation">Features</a>
                     <a href="#timeline" class="hover:text-white transition-colors underline-animation">Timeline</a>
                 </div>
+                <button class="mobile-menu-btn md:hidden" id="mobile-menu-btn" aria-label="開啟選單" aria-expanded="false">
+                    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                </button>
                 <a href="https://github.com/user/goodeats" target="_blank" rel="noopener"
                     class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white hover:text-black text-white transition-all scale-pop"
                     aria-label="GitHub">
@@ -93,6 +96,19 @@
                 </a>
             </div>
         </nav>
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-nav-dropdown md:hidden neo-glass rounded-2xl" id="mobile-nav-dropdown">
+            <div class="nav-links">
+                <a href="#stack"><i class="fa-solid fa-layer-group text-cyan text-sm" style="width:1.25rem"
+                        aria-hidden="true"></i> Stack</a>
+                <a href="#architecture"><i class="fa-solid fa-diagram-project text-purple-400 text-sm"
+                        style="width:1.25rem" aria-hidden="true"></i> Architecture</a>
+                <a href="#features"><i class="fa-solid fa-star text-gold text-sm" style="width:1.25rem"
+                        aria-hidden="true"></i> Features</a>
+                <a href="#timeline"><i class="fa-solid fa-clock-rotate-left text-green-400 text-sm"
+                        style="width:1.25rem" aria-hidden="true"></i> Timeline</a>
+            </div>
+        </div>
     </header>
 
     <main id="main-content" class="relative z-10">
@@ -112,7 +128,7 @@
 
                     <div class="split-content-inner justify-center px-6 sm:px-12 md:px-0">
                         <div class="md:pl-20 max-w-2xl relative z-20 w-full">
-                            <div class="flex items-center gap-4 mb-8">
+                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
                                 <div
                                     class="w-14 h-14 bg-vermilion rounded-lg flex items-center justify-center shadow-lg relative overflow-hidden">
                                     <div class="absolute inset-1 border border-white/30 rounded"></div>
@@ -123,21 +139,22 @@
                             </div>
 
                             <h2
-                                class="font-serif text-4xl sm:text-5xl md:text-8xl font-bold text-white mb-6 leading-tight">
+                                class="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                                 靈魂在<span class="text-gold italic">醬</span>裡<br>
                                 <span
-                                    class="text-xl sm:text-3xl md:text-5xl font-light opacity-80 block mt-2 md:mt-4">Taste
+                                    class="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-light opacity-80 block mt-1 sm:mt-2 md:mt-4">Taste
                                     the
                                     Soul.</span>
                             </h2>
 
-                            <p class="text-gray-200 font-serif text-lg mb-12 border-l-2 border-gold pl-6">
+                            <p
+                                class="text-gray-200 font-serif text-sm sm:text-base md:text-lg mb-6 sm:mb-8 md:mb-12 border-l-2 border-gold pl-4 sm:pl-6">
                                 專注於視覺體驗與互動設計，<br>呈現流暢的 UI/UX 操作流程。
                             </p>
 
                             <a href="https://goodeats.asia" target="_blank" rel="noopener"
-                                class="magnetic-btn rounded-full text-white font-bold inline-flex items-center gap-3 md:gap-4 hero-btn-pulse text-sm md:text-lg"
-                                style="background: linear-gradient(90deg, #F59E0B, #EA580C); padding: 0.875rem 1.5rem; font-size: inherit; letter-spacing: 0.05em; box-shadow: 0 0 40px rgba(234, 88, 12, 0.5), 0 0 80px rgba(234, 88, 12, 0.2);">
+                                class="magnetic-btn rounded-full text-white font-bold inline-flex items-center gap-2 sm:gap-3 md:gap-4 hero-btn-pulse text-xs sm:text-sm md:text-base lg:text-lg"
+                                style="background: linear-gradient(90deg, #F59E0B, #EA580C); padding: 0.75rem 1.25rem; letter-spacing: 0.05em; box-shadow: 0 0 40px rgba(234, 88, 12, 0.5), 0 0 80px rgba(234, 88, 12, 0.2);">
                                 <span>探索設計</span>
                                 <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
                             </a>
@@ -154,9 +171,9 @@
                     <div class="absolute inset-0 bg-gradient-to-l from-black/90 via-black/80 to-transparent"
                         style="transform: skewX(10deg) scale(1.5);"></div>
 
-                    <div class="split-content-inner justify-center px-6 sm:px-12 md:px-0">
+                    <div class="split-content-inner px-6 sm:px-12 md:px-0">
                         <div class="max-w-2xl text-right flex flex-col items-end relative z-20 w-full md:pr-0">
-                            <div class="mb-8 flex flex-col items-end">
+                            <div class="mb-4 sm:mb-6 md:mb-8 flex flex-col items-end">
                                 <span class="font-mono text-cyan text-sm tracking-widest opacity-80 mb-2">&lt;Code
                                     Architecture /&gt;</span>
                                 <div
@@ -165,23 +182,24 @@
                             </div>
 
                             <h2
-                                class="font-display text-4xl sm:text-5xl md:text-8xl font-bold text-white mb-6 leading-tight">
+                                class="font-display text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                                 新鮮在<span class="text-cyan">食</span>材<br>
                                 <span
-                                    class="text-xl sm:text-3xl md:text-5xl font-light block mt-2 md:mt-4 font-mono terminal-text">
+                                    class="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-light block mt-1 sm:mt-2 md:mt-4 font-mono terminal-text">
                                     Code the Core<span class="terminal-cursor" aria-hidden="true"></span>
                                 </span>
                             </h2>
 
-                            <div class="text-gray-400 font-mono text-sm mb-12 border-r-2 border-cyan pr-6">
+                            <div
+                                class="text-gray-400 font-mono text-xs sm:text-sm mb-6 sm:mb-8 md:mb-12 border-r-2 border-cyan pr-4 sm:pr-6">
                                 <p class="mb-2">// Headless Architecture</p>
                                 <p class="mb-2 text-cyan">// React 18 + PHP API</p>
                                 <p>// Secure & Fast</p>
                             </div>
 
                             <a href="#stack"
-                                class="magnetic-btn rounded-full font-bold inline-flex items-center gap-3 md:gap-4 hero-btn-pulse-cyan text-sm md:text-lg"
-                                style="background: rgba(0, 240, 255, 0.15); border: 2px solid #00F0FF; color: #00F0FF; padding: 0.875rem 1.5rem; font-size: inherit; letter-spacing: 0.05em; box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), 0 0 80px rgba(0, 240, 255, 0.15);">
+                                class="magnetic-btn rounded-full font-bold inline-flex items-center gap-2 sm:gap-3 md:gap-4 hero-btn-pulse-cyan text-xs sm:text-sm md:text-base lg:text-lg"
+                                style="background: rgba(0, 240, 255, 0.15); border: 2px solid #00F0FF; color: #00F0FF; padding: 0.75rem 1.25rem; letter-spacing: 0.05em; box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), 0 0 80px rgba(0, 240, 255, 0.15);">
                                 <i class="fa-solid fa-code" aria-hidden="true"></i>
                                 <span>查看技術</span>
                             </a>
@@ -207,7 +225,8 @@
 
             <div class="container mx-auto px-6 sm:px-12 relative z-10">
                 <div class="flex flex-col md:flex-row items-end justify-between mb-16 border-b border-white/10 pb-8">
-                    <h2 id="stack-title" class="font-display text-5xl md:text-7xl font-bold text-white">
+                    <h2 id="stack-title"
+                        class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white">
                         THE<br><span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-orange to-gold">KITCHEN.</span>
                     </h2>
@@ -216,7 +235,7 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                     <!-- Frontend Card -->
                     <article
                         class="md:col-span-2 neo-glass p-10 rounded-3xl relative overflow-hidden card-hover-effect group border-t-4 border-t-cyan/50">
@@ -513,14 +532,14 @@
             <div class="container mx-auto px-6 sm:px-12 relative z-10">
                 <div class="text-center mb-16 sm:mb-20">
                     <h2 id="features-title"
-                        class="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4">
+                        class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4">
                         KEY <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-gold">FEATURES</span>
                     </h2>
                     <p class="text-gray-400 font-serif max-w-xl mx-auto text-sm sm:text-base">網站功能特點與技術細節</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                     <!-- Feature 1 -->
                     <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
                         <div
@@ -590,7 +609,7 @@
             <div class="container mx-auto px-6 sm:px-12 relative z-10">
                 <div class="text-center mb-16 sm:mb-20">
                     <h2 id="timeline-title"
-                        class="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4">
+                        class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4">
                         DEV <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-orange">LOG</span>
                     </h2>
                     <p class="text-gray-400 font-serif text-sm sm:text-base">開發歷程記錄</p>

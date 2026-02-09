@@ -282,16 +282,29 @@ body.hover-link .cursor-outline {
 }
 
 /* Mobile: Full width, no skew */
+/* Mobile: Full width, no skew */
 @media (max-width: 767px) {
     .split-pane {
         width: 100%;
-        min-height: 50vh;
-        min-height: 50dvh;
+        min-height: auto;
         height: auto;
         transform: skewX(0);
         border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: none;
         flex-shrink: 0;
+        padding: 2.5rem 0;
+    }
+    
+    /* Food pane - compact */
+    .split-pane[data-side="food"] {
+        padding-top: 4rem; /* Account for nav */
+        padding-bottom: 2rem;
+    }
+    
+    /* Tech pane - compact */
+    .split-pane[data-side="tech"] {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
     }
 }
 
@@ -303,7 +316,9 @@ body.hover-link .cursor-outline {
     transform: skewX(10deg);
     width: 100vw;
     height: 100%;
-    margin-left: -20vw;
+    margin-left: -25vw;
+    padding-left: 25vw;
+    padding-right: 15vw;
     position: relative;
     display: flex;
     align-items: center;
@@ -401,9 +416,45 @@ body.hover-link .cursor-outline {
         transform: skewX(0);
         width: 100%;
         margin-left: 0;
-        padding: 2rem 1.5rem;
-        align-items: flex-start;
+        padding: 1rem 1.25rem;
+        align-items: center;
         justify-content: center;
+        text-align: center;
+    }
+    
+    /* Food Pane Mobile */
+    .split-pane[data-side="food"] .split-content-inner > div {
+        padding-left: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    /* Tech Pane Mobile */
+    .split-pane[data-side="tech"] .split-content-inner > div {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    /* Mobile Typography Adjustments */
+    .split-pane h2 {
+        text-align: center;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* Mobile Button Centering */
+    .split-pane .magnetic-btn {
+        margin: 0 auto;
+    }
+    
+    /* Reduce mobile margins */
+    .split-pane p {
+        margin-bottom: 1rem !important;
     }
 }
 
@@ -1276,5 +1327,16 @@ body.hover-link .cursor-outline {
     .card-hover-effect:active {
         transform: scale(0.98);
         transition-duration: 0.15s;
+    }
+}
+
+/* STRICT HIDE RULE FOR DESKTOP MENU */
+@media (min-width: 768px) {
+    .mobile-menu-btn, 
+    .mobile-nav-dropdown {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
 }

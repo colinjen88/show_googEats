@@ -255,6 +255,18 @@ body.hover-link .cursor-outline {
     overflow: hidden;
 }
 
+/* Mobile: Stack vertically */
+@media (max-width: 767px) {
+    .split-container {
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+}
+
 .split-pane {
     height: 100%;
     width: 50%;
@@ -269,15 +281,47 @@ body.hover-link .cursor-outline {
     contain: layout style;
 }
 
+/* Mobile: Full width, no skew, equal height */
+@media (max-width: 767px) {
+    .split-pane {
+        width: 100%;
+        height: 50vh;
+        height: 50dvh;
+        transform: skewX(0);
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
 /* Content Un-Skew Logic */
 .split-content-inner {
     transform: skewX(10deg);
     width: 100vw;
     height: 100%;
     margin-left: -20vw;
+    padding-right: 15vw; /* Ensure content isn't cut off on right */
     position: relative;
     display: flex;
     align-items: center;
+}
+
+/* Tablet Optimizations (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .split-content-inner {
+        margin-left: -15vw;
+        padding-right: 10vw;
+    }
+}
+
+/* Mobile: No skew needed */
+@media (max-width: 767px) {
+    .split-content-inner {
+        transform: skewX(0);
+        width: 100%;
+        margin-left: 0;
+        padding: 2rem 1.5rem;
+        align-items: flex-start;
+    }
 }
 
 /* Hover Interaction - 僅桌面 */
@@ -318,9 +362,28 @@ body.hover-link .cursor-outline {
     animation: pulse-seam 3s ease-in-out infinite;
 }
 
+/* Mobile: Horizontal seam at bottom */
+@media (max-width: 767px) {
+    .split-pane::after {
+        top: auto;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+    }
+}
+
 .split-pane[data-side="food"]::after {
     background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
     box-shadow: 0 0 20px var(--color-gold);
+}
+
+@media (max-width: 767px) {
+    .split-pane[data-side="food"]::after {
+        background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    }
 }
 
 .split-pane[data-side="tech"]::after {
@@ -328,6 +391,16 @@ body.hover-link .cursor-outline {
     box-shadow: 0 0 20px var(--color-cyan);
     left: 0;
     right: auto;
+}
+
+@media (max-width: 767px) {
+    .split-pane[data-side="tech"]::after {
+        background: linear-gradient(to right, transparent, var(--color-cyan), transparent);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+    }
 }
 
 /* ===========================================
@@ -345,6 +418,17 @@ body.hover-link .cursor-outline {
     transition: transform 20s ease-in-out;
     /* GPU 加速 */
     will-change: transform;
+}
+
+/* Mobile: No skew needed, simpler positioning */
+@media (max-width: 767px) {
+    .skew-bg-image {
+        transform: scale(1.1);
+        top: -5%;
+        left: -5%;
+        right: -5%;
+        bottom: -5%;
+    }
 }
 
 /* ===========================================

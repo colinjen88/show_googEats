@@ -4,7 +4,7 @@
   "description": "Good Eats 穀意 - 專案技術架構與開發歷程展示",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve -p 3000",
+    "dev": "npx serve -p 2950",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
     "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
   },

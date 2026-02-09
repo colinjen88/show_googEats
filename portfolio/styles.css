@@ -309,42 +309,89 @@ body.hover-link .cursor-outline {
     align-items: center;
 }
 
-/* Desktop/Tablet Specific Side Handling */
-@media (min-width: 768px) {
+/* Desktop Specific Side Handling (> 1024px) */
+@media (min-width: 1025px) {
     /* Left Pane (Food) */
     .split-pane[data-side="food"] .split-content-inner {
-        padding-left: 30vw; /* Push content away from left edge (-20+30=10vw visible start) */
+        padding-left: 30vw;
         justify-content: flex-start;
     }
 
     /* Right Pane (Tech) */
     .split-pane[data-side="tech"] .split-content-inner {
-        /* Starts from -20vw relative to 50vw start = 30vw screen pos */
-        /* Padding 20vw = 50vw screen pos (center line) */
         padding-left: 20vw; 
         justify-content: flex-start; 
     }
     
     /* Tech Content Constraint */
     .split-pane[data-side="tech"] .split-content-inner > div {
-        max-width: 38vw; /* Reduce width to be absolutely safe from clipping */
-        margin-right: 5vw; /* Add significant buffer from right edge */
+        max-width: 38vw;
+        margin-right: 5vw;
         width: 100%;
     }
 }
 
-/* Tablet Optimizations (768px - 1024px) */
+/* Tablet Layout (768px - 1024px): Vertical Slanted Stack */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .split-content-inner {
-        margin-left: -15vw;
-    }
-    
-    .split-pane[data-side="food"] .split-content-inner {
-        padding-left: 25vw;
+    /* Layout Structure */
+    .split-container {
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+        height: auto;
+        min-height: 100vh;
     }
 
-    .split-pane[data-side="tech"] .split-content-inner {
-        padding-left: 20vw;
+    .split-pane {
+        width: 100%;
+        transform: skewX(0); /* Reset horizontal skew */
+        border-right: none;
+        overflow: hidden;
+    }
+
+    /* Top Pane (Food) - Slanted Bottom */
+    .split-pane[data-side="food"] {
+        height: 55vh;
+        z-index: 2;
+        clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    }
+
+    /* Bottom Pane (Tech) - Overlap */
+    .split-pane[data-side="tech"] {
+        height: 55vh;
+        margin-top: -10vh;
+        z-index: 1;
+        padding-top: 8vh; /* Compensate overlap */
+        background-color: #050505; /* Ensure bg covers */
+    }
+
+    /* Pane Seams - Hide on tablet */
+    .split-pane::after {
+        display: none;
+    }
+
+    /* Content Reset */
+    .split-content-inner {
+        transform: skewX(0);
+        width: 100%;
+        margin-left: 0;
+        padding: 0 4rem; /* Comfortable padding */
+        height: 100%;
+        justify-content: center; /* Center horizontally */
+        align-items: center;
+    }
+    
+    /* Reset Tech Constraints */
+    .split-pane[data-side="tech"] .split-content-inner > div {
+        max-width: 100%;
+        margin-right: 0;
+        text-align: center; /* Optional: Center text on tablet */
+        align-items: center;
+    }
+    
+    /* Center Food Content too */
+    .split-pane[data-side="food"] .split-content-inner > div {
+        padding-left: 0;
     }
 }
 

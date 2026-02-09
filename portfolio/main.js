@@ -377,11 +377,59 @@
     ScrollReveal.init();
   }
 
+  // ===========================================
+  // Scroll to Top Button
+  // ===========================================
+  const ScrollToTop = {
+    button: null,
+    threshold: 200,
+
+    init() {
+      this.button = document.getElementById('scroll-to-top');
+      if (!this.button) return;
+
+      this.bindEvents();
+      // Check initial scroll position
+      this.checkScroll();
+    },
+
+    checkScroll() {
+      if (window.scrollY > this.threshold) {
+        this.button.classList.add('visible');
+      } else {
+        this.button.classList.remove('visible');
+      }
+    },
+
+    bindEvents() {
+      // Show/hide button based on scroll position (throttled)
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            this.checkScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Click to scroll to top
+      this.button.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  };
+
   // DOM Ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+      ScrollToTop.init();
+    });
   } else {
     init();
+    ScrollToTop.init();
   }
 
   window.addEventListener('beforeunload', () => {

@@ -844,3 +844,65 @@ body.hover-link .cursor-outline {
         color: black;
     }
 }
+
+/* ===========================================
+   Hero Button Pulse Animations
+   =========================================== */
+.hero-btn-pulse {
+    animation: hero-pulse-gold 2s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-btn-pulse:hover {
+    transform: scale(1.08);
+    animation: none;
+    box-shadow: 0 0 60px rgba(234, 88, 12, 0.7), 0 0 100px rgba(234, 88, 12, 0.3) !important;
+}
+
+.hero-btn-pulse-cyan {
+    animation: hero-pulse-cyan 2s ease-in-out infinite;
+    animation-delay: 0.5s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-btn-pulse-cyan:hover {
+    transform: scale(1.08);
+    animation: none;
+    box-shadow: 0 0 60px rgba(0, 240, 255, 0.7), 0 0 100px rgba(0, 240, 255, 0.3) !important;
+}
+
+@keyframes hero-pulse-gold {
+    0%, 100% {
+        box-shadow: 0 0 40px rgba(234, 88, 12, 0.5), 0 0 80px rgba(234, 88, 12, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(245, 158, 11, 0.8), 0 0 120px rgba(245, 158, 11, 0.4);
+    }
+}
+
+@keyframes hero-pulse-cyan {
+    0%, 100% {
+        box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), 0 0 80px rgba(0, 240, 255, 0.15);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(0, 240, 255, 0.7), 0 0 120px rgba(0, 240, 255, 0.3);
+    }
+}
+
+/* ===========================================
+   Scroll to Top Button
+   =========================================== */
+#scroll-to-top {
+    cursor: pointer;
+}
+
+#scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#scroll-to-top:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 30px rgba(234, 88, 12, 0.6) !important;
+}

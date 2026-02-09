@@ -335,14 +335,14 @@ body.hover-link .cursor-outline {
 
     /* Right Pane (Tech) - Content aligned right */
     .split-pane[data-side="tech"] .split-content-inner {
-        padding-left: 22vw;
+        padding-left: 30vw;
         padding-right: 5vw;
         justify-content: flex-start; 
     }
     
     /* Tech Content Constraint */
     .split-pane[data-side="tech"] .split-content-inner > div {
-        max-width: 40vw;
+        max-width: 35vw;
         margin-right: 0;
         width: 100%;
     }

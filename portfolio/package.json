@@ -1,0 +1,22 @@
+{
+  "name": "goodeats-portfolio",
+  "version": "1.0.0",
+  "description": "Good Eats 穀意 - 專案技術架構與開發歷程展示",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve -p 3000",
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "keywords": [
+    "portfolio",
+    "goodeats",
+    "react",
+    "tailwindcss"
+  ],
+  "author": "Good Eats Team",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -1,0 +1,370 @@
+/* ==============================================
+   Tailwind CSS Entry Point
+   ============================================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==============================================
+   Custom Font Faces (Self-hosted fallback)
+   ============================================== */
+
+/* 
+   Note: For production, download and self-host fonts for better performance.
+   Below are the @font-face declarations for local fonts.
+   Place font files in /fonts/ directory if using local fonts.
+*/
+
+/* ==============================================
+   Custom Utilities (Tailwind Layer)
+   ============================================== */
+
+@layer utilities {
+
+    /* Skip Link */
+    .skip-link {
+        @apply absolute -top-full left-1/2 -translate-x-1/2 px-6 py-2 bg-cyan text-black font-bold no-underline rounded-b-lg z-[10000] transition-all;
+    }
+
+    .skip-link:focus {
+        @apply top-0;
+    }
+
+    /* Glassmorphism */
+    .neo-glass {
+        @apply bg-black/60 backdrop-blur-xl border border-white/10;
+    }
+
+    /* Vertical Text */
+    .vertical-text {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        letter-spacing: 0.2em;
+    }
+
+    /* Terminal Text Gradient */
+    .terminal-text {
+        @apply inline-block relative;
+        background: linear-gradient(90deg, #fff, var(--color-cyan, #00F0FF));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Button Styles */
+    .btn-gourmet {
+        @apply bg-gradient-to-r from-gold to-orange shadow-lg transition-all duration-300;
+        box-shadow: 0 0 30px rgba(234, 88, 12, 0.2);
+    }
+
+    .btn-gourmet:hover {
+        @apply scale-105;
+        box-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
+    }
+
+    .btn-tech {
+        @apply bg-cyan/5 border border-cyan transition-all duration-300;
+        box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+    }
+
+    .btn-tech:hover {
+        @apply bg-cyan text-black;
+        box-shadow: 0 0 40px rgba(0, 240, 255, 0.6);
+    }
+
+    /* Card Hover Effect */
+    .card-hover-effect {
+        @apply transition-transform duration-300;
+    }
+
+    .card-hover-effect:hover {
+        @apply -translate-y-1;
+    }
+}
+
+/* ==============================================
+   Custom Components (Tailwind Layer)
+   ============================================== */
+
+@layer components {
+
+    /* Custom Cursor */
+    .cursor-dot,
+    .cursor-outline {
+        @apply fixed top-0 left-0 rounded-full z-[9999] pointer-events-none;
+        will-change: transform;
+        transform: translate(-50%, -50%) translate3d(0, 0, 0);
+        backface-visibility: hidden;
+    }
+
+    .cursor-dot {
+        @apply w-2 h-2 bg-white;
+        mix-blend-mode: difference;
+    }
+
+    .cursor-outline {
+        @apply w-10 h-10 border border-white/50 transition-all duration-300;
+    }
+
+    /* Terminal Cursor Blink */
+    .terminal-cursor {
+        @apply inline-block w-[0.5em] h-[1em] bg-cyan align-text-bottom ml-1;
+        animation: type-blink 1s step-end infinite;
+    }
+
+    /* Scanline Effect */
+    .scanline-bar {
+        @apply absolute left-0 right-0 h-1 opacity-80 pointer-events-none z-20;
+        background: rgba(0, 240, 255, 0.5);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+        animation: scanline 3s linear infinite;
+        transform: skewX(10deg);
+    }
+}
+
+/* ==============================================
+   Base Styles (Tailwind Layer)
+   ============================================== */
+
+@layer base {
+    :root {
+        --color-dark: #050505;
+        --color-card-bg: #0a0a0a;
+        --color-gold: #F59E0B;
+        --color-orange: #EA580C;
+        --color-cyan: #00F0FF;
+        --color-vermilion: #CD2626;
+        --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html {
+        @apply scroll-smooth antialiased;
+    }
+
+    body {
+        @apply bg-dark text-gray-200 overflow-x-hidden leading-relaxed;
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* GPU acceleration for cursor on desktop */
+    @media (hover: hover) and (pointer: fine) {
+        body {
+            cursor: none;
+        }
+    }
+
+    ::selection {
+        @apply bg-gold text-black;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-cyan outline-offset-2;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        @apply w-1.5;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-gray-700 rounded-full;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-gold);
+    }
+
+    /* Firefox Scrollbar */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #333 var(--color-dark);
+    }
+}
+
+/* ==============================================
+   Keyframe Animations
+   ============================================== */
+
+@keyframes type-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes scanline {
+    0% {
+        top: -20%;
+    }
+
+    100% {
+        top: 120%;
+    }
+}
+
+@keyframes pulse-seam {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    50% {
+        opacity: 0.8;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* ==============================================
+   Split Pane Layout
+   ============================================== */
+
+.split-container {
+    @apply flex overflow-hidden;
+    width: 120%;
+    margin-left: -10%;
+    height: 100vh;
+    height: 100dvh;
+}
+
+.split-pane {
+    @apply h-full relative overflow-hidden;
+    width: 50%;
+    transform: skewX(-10deg);
+    transform-origin: bottom;
+    transition: width 0.8s var(--ease-smooth), filter 0.6s ease;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    will-change: width, filter;
+    contain: layout style;
+}
+
+.split-content-inner {
+    @apply flex items-center relative h-full;
+    transform: skewX(10deg);
+    width: 100vw;
+    margin-left: -20vw;
+}
+
+/* Split Pane Hover (Desktop Only) */
+@media (min-width: 768px) and (hover: hover) {
+    .split-container:hover .split-pane {
+        width: 35%;
+        filter: grayscale(100%) brightness(0.4);
+    }
+
+    .split-container .split-pane:hover {
+        width: 65%;
+        filter: grayscale(0%) brightness(1.1);
+        z-index: 10;
+        box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
+    }
+
+    .split-container .split-pane:hover::after {
+        opacity: 1;
+    }
+}
+
+/* Glowing Seam */
+.split-pane::after {
+    content: '';
+    @apply absolute top-0 right-0 w-0.5 h-full opacity-30 pointer-events-none z-20;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    transition: opacity 0.5s ease;
+    animation: pulse-seam 3s ease-in-out infinite;
+}
+
+.split-pane[data-side="food"]::after {
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+    box-shadow: 0 0 20px var(--color-gold);
+}
+
+.split-pane[data-side="tech"]::after {
+    background: linear-gradient(to bottom, transparent, var(--color-cyan), transparent);
+    box-shadow: 0 0 20px var(--color-cyan);
+    left: 0;
+    right: auto;
+}
+
+/* Background Image */
+.skew-bg-image {
+    @apply absolute bg-cover bg-center;
+    top: -10%;
+    left: -10%;
+    right: -10%;
+    bottom: -10%;
+    transform: skewX(10deg) scale(1.1);
+    transition: transform 20s ease-in-out;
+    will-change: transform;
+}
+
+/* ==============================================
+   Cursor Hover States
+   ============================================== */
+
+body.hover-food .cursor-outline {
+    @apply w-20 h-20 border-2;
+    background-color: rgba(245, 158, 11, 0.15);
+    border-color: var(--color-gold);
+}
+
+body.hover-tech .cursor-outline {
+    @apply w-20 h-20 border-2 border-dashed rounded;
+    background-color: rgba(0, 240, 255, 0.15);
+    border-color: var(--color-cyan);
+}
+
+/* ==============================================
+   Accessibility - Reduced Motion
+   ============================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .cursor-dot,
+    .cursor-outline {
+        @apply hidden;
+    }
+}
+
+/* ==============================================
+   Print Styles
+   ============================================== */
+
+@media print {
+
+    .cursor-dot,
+    .cursor-outline,
+    .skip-link,
+    nav,
+    .scanline-bar {
+        display: none !important;
+    }
+
+    body {
+        @apply bg-white text-black;
+    }
+
+    .split-pane {
+        transform: none !important;
+        filter: none !important;
+    }
+}

@@ -21,7 +21,7 @@
   }
 
   // ===========================================
-  // Custom Cursor Module (放大鏡版本)
+  // Custom Cursor Module (放大鏡版本 - 優化流暢度)
   // ===========================================
   const CustomCursor = {
     cursorDot: null,
@@ -50,9 +50,15 @@
     },
 
     bindEvents() {
+      // 使用 requestAnimationFrame 節流滑鼠事件
+      let ticking = false;
       document.addEventListener('mousemove', (e) => {
-        this.mouseX = e.clientX;
-        this.mouseY = e.clientY;
+        if (!ticking) {
+          this.mouseX = e.clientX;
+          this.mouseY = e.clientY;
+          ticking = true;
+          requestAnimationFrame(() => { ticking = false; });
+        }
       }, { passive: true });
 
       // 可點擊元素 hover 效果
@@ -83,16 +89,14 @@
     animate() {
       if (!this.isEnabled) return;
 
-      // Dot 跟隨滑鼠
-      this.cursorDot.style.left = `${this.mouseX}px`;
-      this.cursorDot.style.top = `${this.mouseY}px`;
+      // Dot 跟隨滑鼠 - 使用 transform 進行 GPU 加速
+      this.cursorDot.style.transform = `translate(${this.mouseX - 12}px, ${this.mouseY - 12}px) translate3d(0,0,0)`;
 
-      // Outline 平滑跟隨
-      this.outlineX = lerp(this.outlineX, this.mouseX, 0.12);
-      this.outlineY = lerp(this.outlineY, this.mouseY, 0.12);
+      // Outline 平滑跟隨 - 提高 lerp 因子以加快追蹤速度
+      this.outlineX = lerp(this.outlineX, this.mouseX, 0.18);
+      this.outlineY = lerp(this.outlineY, this.mouseY, 0.18);
 
-      this.cursorOutline.style.left = `${this.outlineX}px`;
-      this.cursorOutline.style.top = `${this.outlineY}px`;
+      this.cursorOutline.style.transform = `translate(${this.outlineX - 30}px, ${this.outlineY - 30}px) translate3d(0,0,0)`;
 
       this.rafId = requestAnimationFrame(() => this.animate());
     },

@@ -108,7 +108,7 @@ body {
 }
 
 /* ===========================================
-   Custom Cursor - 放大鏡樣式 (GPU 加速)
+   Custom Cursor - 放大鏡樣式 (GPU 加速優化)
    =========================================== */
 .cursor-dot {
     position: fixed;
@@ -117,7 +117,6 @@ body {
     z-index: 9999;
     pointer-events: none;
     will-change: transform;
-    transform: translate(-50%, -50%) translate3d(0, 0, 0);
     backface-visibility: hidden;
     /* 放大鏡圖示 */
     width: 24px;
@@ -128,7 +127,7 @@ body {
     font-size: 18px;
     color: white;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s var(--ease-smooth), color 0.3s;
+    transition: color 0.3s;
 }
 
 .cursor-dot::before {
@@ -144,15 +143,14 @@ body {
     z-index: 9998;
     pointer-events: none;
     will-change: transform;
-    transform: translate(-50%, -50%) translate3d(0, 0, 0);
     backface-visibility: hidden;
     width: 60px;
     height: 60px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
     transition:
-        width 0.4s var(--ease-smooth),
-        height 0.4s var(--ease-smooth),
+        width 0.3s ease-out,
+        height 0.3s ease-out,
         background 0.3s,
         border-color 0.3s,
         border-radius 0.3s,

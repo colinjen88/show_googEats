@@ -81,6 +81,8 @@
                 </a>
                 <div class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
                     <a href="#stack" class="hover:text-white transition-colors underline-animation">Stack</a>
+                    <a href="#architecture"
+                        class="hover:text-white transition-colors underline-animation">Architecture</a>
                     <a href="#features" class="hover:text-white transition-colors underline-animation">Features</a>
                     <a href="#timeline" class="hover:text-white transition-colors underline-animation">Timeline</a>
                 </div>
@@ -271,6 +273,235 @@
             </div>
         </section>
 
+        <!-- ARCHITECTURE & DEVOPS SECTION -->
+        <section id="architecture"
+            class="py-24 md:py-40 relative bg-gradient-to-b from-[#050505] via-[#080808] to-[#050505] overflow-hidden"
+            aria-labelledby="arch-title">
+            <!-- Background Decorations -->
+            <div class="absolute top-1/4 left-0 w-[600px] h-[600px] bg-cyan/5 rounded-full blur-[150px] -translate-x-1/2"
+                aria-hidden="true"></div>
+            <div class="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[150px] translate-x-1/2"
+                aria-hidden="true"></div>
+
+            <div class="container mx-auto px-6 md:px-12 relative z-10">
+                <!-- Section Header -->
+                <div class="text-center mb-16 md:mb-24">
+                    <span
+                        class="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-400 tracking-widest uppercase mb-6">
+                        Engineering Deep Dive
+                    </span>
+                    <h2 id="arch-title" class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                        SYSTEM <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple-400 to-purple-500">ARCHITECTURE</span>
+                    </h2>
+                    <p class="text-gray-400 font-serif text-lg max-w-2xl mx-auto leading-relaxed">
+                        從 Flat-file CMS 無資料庫架構到 CI/CD 自動化部署，<br class="hidden md:block">深入剖析系統設計的每一個細節。
+                    </p>
+                </div>
+
+                <!-- Sub-section 1: System Architecture -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center mb-24 md:mb-32">
+                    <!-- Image Container -->
+                    <div class="lg:col-span-7 order-2 lg:order-1">
+                        <div
+                            class="neo-glass p-3 md:p-4 rounded-2xl md:rounded-3xl border border-cyan/20 relative group overflow-hidden">
+                            <!-- Glow Effect -->
+                            <div
+                                class="absolute -inset-1 bg-gradient-to-r from-cyan/30 to-purple-500/30 rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-all duration-700">
+                            </div>
+                            <!-- Corner Decorations -->
+                            <div
+                                class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-cyan/50 rounded-tl-lg z-20">
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyan/50 rounded-br-lg z-20">
+                            </div>
+                            <!-- Image -->
+                            <img src="assets/Developer_WOrkflow.png" alt="Developer Workflow & System Architecture"
+                                class="rounded-xl md:rounded-2xl w-full h-auto relative z-10 shadow-2xl transition-all duration-700 group-hover:scale-[1.02]"
+                                loading="lazy">
+                            <!-- Caption -->
+                            <div class="absolute bottom-6 left-6 right-6 z-20">
+                                <div
+                                    class="neo-glass px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs font-mono text-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <i class="fa-solid fa-diagram-project"></i>
+                                    <span>Developer Workflow Diagram</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="lg:col-span-5 order-1 lg:order-2">
+                        <div class="lg:pl-4">
+                            <!-- Sub-title Badge -->
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan/10 border border-cyan/20 mb-6">
+                                <i class="fa-solid fa-server text-cyan text-sm"></i>
+                                <span class="text-cyan text-xs font-mono uppercase tracking-wider">Data Layer</span>
+                            </div>
+
+                            <h3
+                                class="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+                                Flat-file CMS<br><span
+                                    class="text-gray-400 text-xl md:text-2xl font-normal">無資料庫架構</span>
+                            </h3>
+
+                            <p class="text-gray-400 font-serif text-base md:text-lg leading-relaxed mb-8">
+                                本專案不依賴傳統龐大的資料庫系統，而是採用 <strong class="text-white">Flat-file CMS (檔案式內容管理)</strong>
+                                架構，實現極低的維護成本與極高的載入效能。
+                            </p>
+
+                            <!-- Feature List -->
+                            <div class="space-y-5">
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-orange/20 flex items-center justify-center border border-gold/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-bolt text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">讀寫分離設計</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            前端直接請求靜態 <code
+                                                class="bg-white/10 px-1.5 py-0.5 rounded text-cyan text-xs">JSON</code>，配合
+                                            CDN 實現毫秒級載入。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-orange/20 flex items-center justify-center border border-gold/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-shield-halved text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">資料保護機制</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            雙重資料源降級、防覆蓋機制、衝突偵測與自動備份還原。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="flex items-center justify-center gap-4 mb-24 md:mb-32">
+                    <div class="h-px w-24 bg-gradient-to-r from-transparent to-white/20"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                    <div class="h-px w-24 bg-gradient-to-l from-transparent to-white/20"></div>
+                </div>
+
+                <!-- Sub-section 2: CI/CD Pipeline -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                    <!-- Content -->
+                    <div class="lg:col-span-5">
+                        <div class="lg:pr-4">
+                            <!-- Sub-title Badge -->
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
+                                <i class="fa-solid fa-infinity text-purple-400 text-sm"></i>
+                                <span class="text-purple-400 text-xs font-mono uppercase tracking-wider">DevOps</span>
+                            </div>
+
+                            <h3
+                                class="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+                                CI/CD 自動化<br><span class="text-gray-400 text-xl md:text-2xl font-normal">部署流程</span>
+                            </h3>
+
+                            <p class="text-gray-400 font-serif text-base md:text-lg leading-relaxed mb-8">
+                                導入標準 <strong class="text-white">Git Flow</strong> 開發流程，配合 GitHub Actions
+                                實現全自動化部署，從程式碼提交到上線一鍵完成。
+                            </p>
+
+                            <!-- Workflow Diagram -->
+                            <div class="neo-glass p-5 md:p-6 rounded-xl border-l-4 border-purple-500 mb-8">
+                                <div class="flex items-center gap-2 mb-3 text-sm text-purple-400 font-mono">
+                                    <span class="relative flex h-2 w-2">
+                                        <span
+                                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                                    </span>
+                                    <span class="uppercase tracking-widest text-xs">Deployment Pipeline</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 text-white font-mono text-sm">
+                                    <span class="px-3 py-1.5 bg-white/10 rounded-lg">Dev</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-600 text-xs"></i>
+                                    <span class="px-3 py-1.5 bg-cyan/20 text-cyan rounded-lg">Staging</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-600 text-xs"></i>
+                                    <span class="px-3 py-1.5 bg-purple-500/20 text-purple-400 rounded-lg">Main</span>
+                                    <i class="fa-solid fa-arrow-right text-gray-600 text-xs"></i>
+                                    <span
+                                        class="px-3 py-1.5 bg-green-500/20 text-green-400 rounded-lg">Production</span>
+                                </div>
+                            </div>
+
+                            <!-- Feature List -->
+                            <div class="space-y-5">
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center border border-purple-500/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-vial text-purple-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">Staging 測試站</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            自動注入 <code class="bg-white/10 px-1.5 py-0.5 rounded text-xs">noindex</code>
+                                            防止 SEO 污染。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center border border-purple-500/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-lock text-purple-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">Production 正式站</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            嚴格的部署保護與權限控管，自動排除敏感設定檔。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Container -->
+                    <div class="lg:col-span-7">
+                        <div
+                            class="neo-glass p-3 md:p-4 rounded-2xl md:rounded-3xl border border-purple-500/20 relative group overflow-hidden">
+                            <!-- Glow Effect -->
+                            <div
+                                class="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-all duration-700">
+                            </div>
+                            <!-- Corner Decorations -->
+                            <div
+                                class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-purple-500/50 rounded-tl-lg z-20">
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-purple-500/50 rounded-br-lg z-20">
+                            </div>
+                            <!-- Image -->
+                            <img src="assets/Architecture_CICD.png" alt="CI/CD Pipeline Architecture Diagram"
+                                class="rounded-xl md:rounded-2xl w-full h-auto relative z-10 shadow-2xl transition-all duration-700 group-hover:scale-[1.02]"
+                                loading="lazy">
+                            <!-- Caption -->
+                            <div class="absolute bottom-6 left-6 right-6 z-20">
+                                <div
+                                    class="neo-glass px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs font-mono text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <i class="fa-solid fa-code-branch"></i>
+                                    <span>CI/CD Pipeline Architecture</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FEATURES SECTION -->
         <section id="features" class="py-32 relative bg-[#020202] overflow-hidden" aria-labelledby="features-title">
             <div class="container mx-auto px-6 relative z-10">
@@ -371,24 +602,49 @@
                         <article class="relative">
                             <div class="absolute -left-[41px] w-5 h-5 bg-cyan rounded-full border-4 border-dark"></div>
                             <time class="text-cyan font-mono text-sm">2026-02-08</time>
-                            <h3 class="font-display text-xl font-bold text-white mt-2">v2.1 - 自動化部署</h3>
-                            <p class="text-gray-400 text-sm mt-2 font-serif">完成 GitHub Actions 與 Hostinger FTPS 串接，實現
+                            <h3 class="font-display text-xl font-bold text-white mt-2">v2.1 - 自動化部署實作</h3>
+                            <p class="text-gray-400 text-sm mt-2 font-serif">完成 GitHub Actions 與 Hostinger FTPS 的串接，實現
                                 Push-to-Deploy</p>
                         </article>
 
                         <article class="relative">
                             <div class="absolute -left-[41px] w-5 h-5 bg-purple-500 rounded-full border-4 border-dark">
                             </div>
-                            <time class="text-purple-400 font-mono text-sm">2026-02-03</time>
+                            <time class="text-purple-400 font-mono text-sm">2026-02-06</time>
+                            <h3 class="font-display text-xl font-bold text-white mt-2">v2.0 - Admin UI 優化</h3>
+                            <p class="text-gray-400 text-sm mt-2 font-serif">重構後台介面，新增「聯絡資訊」、「經營理念」的可編輯區塊</p>
+                        </article>
+
+                        <article class="relative">
+                            <div class="absolute -left-[41px] w-5 h-5 bg-green-500 rounded-full border-4 border-dark">
+                            </div>
+                            <time class="text-green-400 font-mono text-sm">2026-02-04</time>
+                            <h3 class="font-display text-xl font-bold text-white mt-2">v1.8 - Loading 體驗升級</h3>
+                            <p class="text-gray-400 text-sm mt-2 font-serif">導入 Lottie 動畫與 CSS Steam Loading 效果，解決 FOUC
+                                問題</p>
+                        </article>
+
+                        <article class="relative">
+                            <div class="absolute -left-[41px] w-5 h-5 bg-yellow-500 rounded-full border-4 border-dark">
+                            </div>
+                            <time class="text-yellow-400 font-mono text-sm">2026-02-03</time>
                             <h3 class="font-display text-xl font-bold text-white mt-2">v1.5 - 視覺大改版</h3>
                             <p class="text-gray-400 text-sm mt-2 font-serif">確立 Dark Theme 與 Glassmorphism
                                 設計語言，實作全螢幕影片背景</p>
                         </article>
 
                         <article class="relative">
-                            <div class="absolute -left-[41px] w-5 h-5 bg-green-500 rounded-full border-4 border-dark">
+                            <div class="absolute -left-[41px] w-5 h-5 bg-orange-500 rounded-full border-4 border-dark">
                             </div>
-                            <time class="text-green-400 font-mono text-sm">2026-01-29</time>
+                            <time class="text-orange-400 font-mono text-sm">2026-01-31</time>
+                            <h3 class="font-display text-xl font-bold text-white mt-2">v1.2 - 後台功能增強</h3>
+                            <p class="text-gray-400 text-sm mt-2 font-serif">新增「文章回收桶」與「精選文章」功能</p>
+                        </article>
+
+                        <article class="relative">
+                            <div class="absolute -left-[41px] w-5 h-5 bg-gray-500 rounded-full border-4 border-dark">
+                            </div>
+                            <time class="text-gray-400 font-mono text-sm">2026-01-29</time>
                             <h3 class="font-display text-xl font-bold text-white mt-2">v1.0 - 初期上線</h3>
                             <p class="text-gray-400 text-sm mt-2 font-serif">基礎 CMS 功能完成，React 前端架構定型</p>
                         </article>

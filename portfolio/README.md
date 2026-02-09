@@ -23,6 +23,11 @@
   - **Shimmer Effects**：光影掃過按鈕與卡片的質感特效。
   - **Scroll Reveal**：元素進入視窗時的順滑淡入動畫。
 
+### 🏗️ 系統架構展示 (NEW)
+- **Flat-file CMS 機制**：無資料庫架構，讀寫分離設計實現毫秒級載入。
+- **CI/CD 自動化流程**：Git Flow + GitHub Actions，從 Dev → Staging → Main → Production 全自動部署。
+- **資料保護機制**：雙重資料源降級、防覆蓋機制、衝突偵測與自動備份。
+
 ### ⚡ 效能與架構
 - **Tailwind CSS 架構**：採用 Utility-first 策略，並透過 `@apply` 封裝核心組件，保持 HTML 整潔。
 - **GPU 硬體加速**：關鍵動畫使用 `transform3d` 與 `will-change`，確保 60fps 流暢度。
@@ -43,15 +48,18 @@
 
 ```bash
 portfolio/
+├── assets/                  # 架構圖片資源
+│   ├── Architecture_CICD.png
+│   └── Developer_WOrkflow.png
 ├── dist/
-│   └── output.css       # 編譯後的生產環境 CSS (Minified)
+│   └── output.css           # 編譯後的生產環境 CSS (Minified)
 ├── src/
-│   └── input.css        # Tailwind CSS 原始碼與自訂樣式
-├── index.html           # 主頁面 (SEO & A11y Optimized)
-├── main.js              # 互動邏輯 (游標、滾動、動畫)
-├── styles.css           # 額外的自訂 CSS 特效
-├── tailwind.config.js   # Tailwind 設定檔
-└── package.json         # 專案依賴與腳本
+│   └── input.css            # Tailwind CSS 原始碼與自訂樣式
+├── index.html               # 主頁面 (SEO & A11y Optimized)
+├── main.js                  # 互動邏輯 (游標、滾動、動畫)
+├── styles.css               # 額外的自訂 CSS 特效
+├── tailwind.config.js       # Tailwind 設定檔
+└── package.json             # 專案依賴與腳本
 ```
 
 ## 🚀 快速開始 (Getting Started)
@@ -74,16 +82,20 @@ npm run build:css
 ### 4. 啟動本地伺服器
 可以使用 `serve` 或 `Live Server`：
 ```bash
+npm run dev
+# 或
 npx serve -p 3000
 ```
 瀏覽器開啟：`http://localhost:3000`
 
 ## 📝 開發日誌
 
-- **v2.5 (Current)**: 新增放大鏡游標、磁吸按鈕、3D 卡片傾斜等微互動。
+- **v3.0 (Current)**: 新增「System Architecture」區段，整合 Flat-file CMS 與 CI/CD Pipeline 架構圖，優化 UI/UX 間距與視覺層次。
+- **v2.5**: 新增放大鏡游標、磁吸按鈕、3D 卡片傾斜等微互動。
 - **v2.2**: 優化 SEO 結構，導入 Tailwind CSS 生產編譯流程。
 - **v2.0**: 實作斜切佈局與基礎動畫系統。
 - **v1.0**: 初始化專案結構。
 
 ---
 © 2026 Good Eats Team. Crafted with Code & Passion.
+

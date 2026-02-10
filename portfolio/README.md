@@ -28,6 +28,11 @@
 - **CI/CD 自動化流程**：Git Flow + GitHub Actions，從 Dev → Staging → Main → Production 全自動部署。
 - **資料保護機制**：雙重資料源降級、防覆蓋機制、衝突偵測與自動備份。
 
+### 🛡️ 後台內容管理系統 (Admin CMS)
+- **Flat-file 無資料庫與所見即所得編輯**：視覺化管理品牌資訊、社群連結與活動公告。
+- **安全防護**：CSRF Token、bcrypt 密碼雜湊、IP 鎖定機制。
+- **草稿自動救援**：localStorage 即時備份編輯內容，防止資料遺失。
+
 ### ⚡ 效能與架構
 - **Tailwind CSS 架構**：採用 Utility-first 策略，並透過 `@apply` 封裝核心組件，保持 HTML 整潔。
 - **GPU 硬體加速**：關鍵動畫使用 `transform3d` 與 `will-change`，確保 60fps 流暢度。
@@ -49,8 +54,11 @@
 ```bash
 portfolio/
 ├── assets/                  # 架構圖片資源
-│   ├── Architecture_CICD.png
-│   └── Developer_WOrkflow.png
+│   ├── Admin_CMS.png        # 後台管理介面截圖
+│   ├── Architecture_CICD.jpg
+│   ├── Developer_WOrkflow.jpg
+│   ├── favicon.svg          # 網站圖示
+│   └── style_notes.md       # 設計風格筆記
 ├── dist/
 │   └── output.css           # 編譯後的生產環境 CSS (Minified)
 ├── src/
@@ -90,7 +98,7 @@ npx serve -p 3000
 
 ## 📝 開發日誌
 
-- **v3.0 (Current)**: 新增「System Architecture」區段，整合 Flat-file CMS 與 CI/CD Pipeline 架構圖，優化 UI/UX 間距與視覺層次。
+- **v3.0 (Current)**: 新增「Admin CMS」與「System Architecture」專區，整合後台展示、Flat-file 機制與 CI/CD Pipeline 架構圖，全面優化 UI/UX。
 - **v2.5**: 新增放大鏡游標、磁吸按鈕、3D 卡片傾斜等微互動。
 - **v2.2**: 優化 SEO 結構，導入 Tailwind CSS 生產編譯流程。
 - **v2.0**: 實作斜切佈局與基礎動畫系統。

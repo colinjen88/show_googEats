@@ -13,6 +13,9 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://goodeats.asia/portfolio/">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://goodeats.asia/portfolio/">
@@ -81,6 +84,7 @@
                 </a>
                 <div class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
                     <a href="#stack" class="hover:text-white transition-colors underline-animation">Stack</a>
+                    <a href="#admin-cms" class="hover:text-white transition-colors underline-animation">Admin</a>
                     <a href="#architecture"
                         class="hover:text-white transition-colors underline-animation">Architecture</a>
                     <a href="#features" class="hover:text-white transition-colors underline-animation">Features</a>
@@ -102,6 +106,8 @@
             <div class="nav-links">
                 <a href="#stack"><i class="fa-solid fa-layer-group text-cyan text-sm" style="width:1.25rem"
                         aria-hidden="true"></i> Stack</a>
+                <a href="#admin-cms"><i class="fa-solid fa-sliders text-orange text-sm" style="width:1.25rem"
+                        aria-hidden="true"></i> Admin</a>
                 <a href="#architecture"><i class="fa-solid fa-diagram-project text-purple-400 text-sm"
                         style="width:1.25rem" aria-hidden="true"></i> Architecture</a>
                 <a href="#features"><i class="fa-solid fa-star text-gold text-sm" style="width:1.25rem"
@@ -303,6 +309,178 @@
                         </div>
                         <i class="fa-solid fa-rocket text-3xl text-green-400 icon-bounce" aria-hidden="true"></i>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN CMS SECTION -->
+        <section id="admin-cms"
+            class="py-24 md:py-40 relative bg-gradient-to-b from-[#020202] via-[#080808] to-[#050505] overflow-hidden"
+            aria-labelledby="cms-title">
+            <!-- Background Decorations -->
+            <div class="absolute top-1/3 right-0 w-[600px] h-[600px] bg-orange/5 rounded-full blur-[150px] translate-x-1/3"
+                aria-hidden="true"></div>
+            <div class="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[150px] -translate-x-1/3"
+                aria-hidden="true"></div>
+
+            <div class="container mx-auto px-6 md:px-12 relative z-10">
+                <!-- Section Header -->
+                <div class="text-center mb-16 md:mb-24">
+                    <span
+                        class="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-400 tracking-widest uppercase mb-6">
+                        Backend Management
+                    </span>
+                    <h2 id="cms-title" class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                        ADMIN <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-gold via-orange to-vermilion">CMS</span>
+                    </h2>
+                    <p class="text-gray-400 font-serif text-lg max-w-2xl mx-auto leading-relaxed">
+                        自行研發的 Flat-file 內容管理系統，<br class="hidden md:block">無需資料庫，即可實現視覺化的網站內容編輯。
+                    </p>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                    <!-- Left: Screenshot -->
+                    <div class="lg:col-span-7 order-2 lg:order-1">
+                        <div
+                            class="neo-glass p-3 md:p-4 rounded-2xl md:rounded-3xl border border-orange/20 relative group overflow-hidden">
+                            <!-- Glow Effect -->
+                            <div
+                                class="absolute -inset-1 bg-gradient-to-r from-gold/30 to-orange/30 rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-all duration-700">
+                            </div>
+                            <!-- Corner Decorations -->
+                            <div
+                                class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-orange/50 rounded-tl-lg z-20">
+                            </div>
+                            <div
+                                class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-orange/50 rounded-br-lg z-20">
+                            </div>
+                            <!-- Browser Chrome -->
+                            <div class="bg-[#1a1a1a] rounded-t-xl px-4 py-2.5 flex items-center gap-3 relative z-10">
+                                <div class="flex gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                </div>
+                                <div
+                                    class="flex-1 bg-black/40 rounded-md px-3 py-1 text-xs text-gray-500 font-mono text-center">
+                                    goodeats.asia/admin
+                                </div>
+                            </div>
+                            <!-- Image -->
+                            <img src="assets/Admin_CMS.png" alt="Good Eats 後台內容管理系統介面"
+                                class="rounded-b-xl md:rounded-b-2xl w-full h-auto relative z-10 shadow-2xl transition-all duration-700 group-hover:scale-[1.02]"
+                                loading="lazy">
+                            <!-- Caption -->
+                            <div class="absolute bottom-6 left-6 right-6 z-20">
+                                <div
+                                    class="neo-glass px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs font-mono text-orange opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <i class="fa-solid fa-sliders"></i>
+                                    <span>Admin Dashboard — 社群/品牌管理介面</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Content -->
+                    <div class="lg:col-span-5 order-1 lg:order-2">
+                        <div class="lg:pl-4">
+                            <!-- Sub-title Badge -->
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange/10 border border-orange/20 mb-6">
+                                <i class="fa-solid fa-sliders text-orange text-sm"></i>
+                                <span class="text-orange text-xs font-mono uppercase tracking-wider">Content
+                                    Management</span>
+                            </div>
+
+                            <h3
+                                class="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
+                                視覺化後台管理<br><span class="text-gray-400 text-xl md:text-2xl font-normal">Flat-file CMS
+                                    無資料庫架構</span>
+                            </h3>
+
+                            <p class="text-gray-400 font-serif text-base md:text-lg leading-relaxed mb-8">
+                                透過自行開發的後台管理介面，店家可直接編輯網站所有內容，包括<strong
+                                    class="text-white">品牌資訊、社群連結、招牌美食、活動公告</strong>等，所有資料以 JSON 檔案儲存，無需傳統資料庫。
+                            </p>
+
+                            <!-- Feature List -->
+                            <div class="space-y-5">
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-orange/20 flex items-center justify-center border border-gold/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-pen-to-square text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">區塊化視覺編輯</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            以 Tab 分頁管理不同區塊：近期活動、招牌美食、食客好評、經營理念、聯絡資訊、社群品牌，所見即所得。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-orange/20 flex items-center justify-center border border-gold/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-cloud-arrow-up text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">圖片上傳與管理</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            支援拖曳上傳與 URL 輸入，自動產生預覽，圖片存放於獨立目錄，部署時不被覆蓋。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-orange/20 flex items-center justify-center border border-gold/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-shield-halved text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">安全防護機制</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            CSRF Token 防禦、<code
+                                                class="bg-white/10 px-1.5 py-0.5 rounded text-xs">bcrypt</code>
+                                            密碼雜湊、登入錯誤 5 次自動鎖定 IP。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 group/item">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-orange/20 flex items-center justify-center border border-gold/20 group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-floppy-disk text-gold"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">草稿自動救援</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">
+                                            利用 localStorage 即時儲存編輯中的內容，瀏覽器崩潰時可一鍵還原，並支援版本備份。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tech Tags -->
+                            <div class="mt-8 flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">PHP
+                                    API</span>
+                                <span
+                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">JSON
+                                    Storage</span>
+                                <span
+                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">CSRF
+                                    Protection</span>
+                                <span
+                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">bcrypt</span>
+                                <span
+                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">Auto
+                                    Backup</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -629,12 +807,13 @@
                         <article class="relative">
                             <div class="absolute -left-[41px] w-5 h-5 bg-gold rounded-full border-4 border-dark"></div>
                             <time class="text-gold font-mono text-sm">2026-02-10</time>
-                            <h3 class="font-display text-xl font-bold text-white mt-2">網站前後台移交</h3>
-                            <p class="text-gray-400 text-sm mt-2 font-serif">建立說明手冊</p>
+                            <h3 class="font-display text-xl font-bold text-white mt-2">v3.0 - 系統架構完整展示</h3>
+                            <p class="text-gray-400 text-sm mt-2 font-serif">新增 Architecture & DevOps 專區，整合 Flat-file
+                                CMS 機制與 CI/CD Pipeline 視覺化圖表</p>
                         </article>
                         <article class="relative">
-                            <div class="absolute -left-[41px] w-5 h-5 bg-gold rounded-full border-4 border-dark"></div>
-                            <time class="text-gold font-mono text-sm">2026-02-09</time>
+                            <div class="absolute -left-[41px] w-5 h-5 bg-cyan rounded-full border-4 border-dark"></div>
+                            <time class="text-cyan font-mono text-sm">2026-02-09</time>
                             <h3 class="font-display text-xl font-bold text-white mt-2">v2.5 - CI/CD 流程完善</h3>
                             <p class="text-gray-400 text-sm mt-2 font-serif">建立 Branch Protection Rules，優化
                                 Staging/Production 部署腳本</p>

@@ -82,11 +82,14 @@ graph LR
 
 | 日期 | 版本 | 開發項目 / 里程碑 |
 |------|------|-------------------|
-| **2026-02-09** | v2.2 | **CI/CD 流程完善**：建立 Branch Protection Rules，優化 Staging/Production 部署腳本。 |
-| **2026-02-08** | v2.1 | **自動化部署實作**：完成 GitHub Actions 與 Hostinger FTPS 的串接，實現 Push-to-Deploy。 |
-| **2026-02-06** | v2.0 | **Admin UI 優化**：重構後台介面，新增「聯絡資訊」、「經營理念」的可編輯區塊。 |
+| **2026-02-10** | v3.0 | **系統架構完整展示**：新增「System Architecture」區段，整合 Flat-file CMS 與 CI/CD Pipeline 架構圖，優化 UI/UX 間距與視覺層次。 |
+| **2026-02-09** | v2.5 | **CI/CD 流程完善**：建立 Branch Protection Rules，優化 Staging/Production 部署腳本。 |
+| **2026-02-08** | v2.4 | **自動化部署實作**：完成 GitHub Actions 與 Hostinger FTPS 的串接，實現 Push-to-Deploy。 |
+| **2026-02-07** | v2.2 | **Admin UI 優化**：重構後台介面，新增「聯絡資訊」、「經營理念」的可編輯區塊。 |
+| **2026-02-05** | v2.1 | **SEO 優化**：新增 SEO 標籤、描述與 Schema。 |
+| **2026-02-05** | v2.0 | **建立簡易後台**：建立基本後台，可編輯首頁、關於我們、服務項目。 |
 | **2026-02-04** | v1.8 | **Loading 體驗升級**：導入 Lottie 動畫與 CSS Steam Loading 效果，解決 FOUC 問題。 |
-| **2026-02-03** | v1.5 | **視覺大改版**：確立 Dark Theme 與 Glassmorphism 設計語言，實作全螢幕影片背景。 |
+| **2026-02-03** | v1.6 | **視覺大改版**：確立 Dark Theme 與 Glassmorphism 設計語言，實作全螢幕影片背景。 |
 | **2026-01-31** | v1.2 | **後台功能增強**：新增「文章回收桶」與「精選文章」功能。 |
 | **2026-01-29** | v1.0 | **初期上線**：基礎 CMS 功能完成，React 前端架構定型。 |
 

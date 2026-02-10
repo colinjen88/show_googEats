@@ -1,6 +1,6 @@
 {
   "name": "goodeats-portfolio",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Good Eats 穀意 - 專案技術架構與開發歷程展示",
   "main": "index.html",
   "scripts": {

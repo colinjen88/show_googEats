@@ -262,7 +262,7 @@
                             <i class="fa-brands fa-react text-3xl text-cyan" aria-hidden="true"></i>
                         </div>
                         <h3 class="font-display text-3xl font-bold text-white mb-2">React 18</h3>
-                        <p class="text-gray-400 font-serif">Concurrent Mode + Vite 極速渲染</p>
+                        <p class="text-gray-400 font-serif">Concurrent Mode + Vite 高效渲染</p>
                         <div class="mt-6 flex flex-wrap gap-2">
                             <span
                                 class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300">Fast
@@ -297,7 +297,7 @@
                             <i class="fa-solid fa-layer-group text-gold text-2xl" aria-hidden="true"></i>
                             <h3 class="font-display text-2xl font-bold text-white">JSON CMS</h3>
                         </div>
-                        <p class="text-sm text-gray-400 font-serif">無資料庫架構<br>Flat-file 極速讀取</p>
+                        <p class="text-sm text-gray-400 font-serif">無資料庫架構<br>Flat-file 快速讀取</p>
                     </article>
 
                     <!-- CI/CD Card -->
@@ -428,7 +428,7 @@
                                     <div>
                                         <h4 class="text-white font-semibold mb-1">圖片上傳與管理</h4>
                                         <p class="text-gray-500 text-sm leading-relaxed">
-                                            支援拖曳上傳與 URL 輸入，自動產生預覽，圖片存放於獨立目錄，部署時不被覆蓋。
+                                            驗證真實檔案類型 (MIME Type) 並強制重命名，防止惡意寫入，且部署時保留圖檔。
                                         </p>
                                     </div>
                                 </div>
@@ -441,9 +441,7 @@
                                     <div>
                                         <h4 class="text-white font-semibold mb-1">安全防護機制</h4>
                                         <p class="text-gray-500 text-sm leading-relaxed">
-                                            CSRF Token 防禦、<code
-                                                class="bg-white/10 px-1.5 py-0.5 rounded text-xs">bcrypt</code>
-                                            密碼雜湊、登入錯誤 5 次自動鎖定 IP。
+                                            實作 Admin/Editor 分級權限 (RBAC)，結合自我保護機制與 CSRF 防禦，確保後台安全。
                                         </p>
                                     </div>
                                 </div>
@@ -456,7 +454,7 @@
                                     <div>
                                         <h4 class="text-white font-semibold mb-1">草稿自動救援</h4>
                                         <p class="text-gray-500 text-sm leading-relaxed">
-                                            利用 localStorage 即時儲存編輯中的內容，瀏覽器崩潰時可一鍵還原，並支援版本備份。
+                                            編輯時自動備份歷史版本，並實作樂觀鎖 (Optimistic Locking) 機制，防止多人協作時的資料覆蓋。
                                         </p>
                                     </div>
                                 </div>
@@ -476,8 +474,7 @@
                                 <span
                                     class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">bcrypt</span>
                                 <span
-                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">Auto
-                                    Backup</span>
+                                    class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400">Versioning</span>
                             </div>
                         </div>
                     </div>
@@ -733,17 +730,17 @@
                             <i class="fa-solid fa-film text-2xl text-gold" aria-hidden="true"></i>
                         </div>
                         <h3 class="font-display text-xl font-bold text-white mb-3">視覺體驗</h3>
-                        <p class="text-gray-400 text-sm font-serif leading-relaxed">影片背景與 Canvas 粒子特效，提升視覺豐富度</p>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">結合影片背景與 Canvas 粒子特效，豐富視覺層次</p>
                     </article>
 
                     <!-- Feature 2 -->
                     <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
                         <div
                             class="w-14 h-14 bg-gradient-to-br from-cyan/20 to-blue-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-droplet text-2xl text-cyan" aria-hidden="true"></i>
+                            <i class="fa-solid fa-gauge-high text-2xl text-cyan" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-display text-xl font-bold text-white mb-3">Glassmorphism</h3>
-                        <p class="text-gray-400 text-sm font-serif leading-relaxed">採用毛玻璃質感 UI，呈現現代化設計風格</p>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">效能分級</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">偵測裝置效能自動調整特效等級，確保流暢體驗</p>
                     </article>
 
                     <!-- Feature 3 -->
@@ -752,39 +749,69 @@
                             class="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-wand-magic-sparkles text-2xl text-purple-400" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-display text-xl font-bold text-white mb-3">Lottie 動畫</h3>
-                        <p class="text-gray-400 text-sm font-serif leading-relaxed">使用 Lottie JSON 動畫，優化載入體驗</p>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">輕量動畫</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">使用 Lottie 向量動畫，兼顧品質與載入速度</p>
                     </article>
 
                     <!-- Feature 4 -->
                     <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
                         <div
-                            class="w-14 h-14 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-magnifying-glass text-2xl text-green-400" aria-hidden="true"></i>
+                            class="w-14 h-14 bg-gradient-to-br from-red-500/20 to-pink-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-user-shield text-2xl text-red-400" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-display text-xl font-bold text-white mb-3">在地 SEO 戰略</h3>
-                        <p class="text-gray-400 text-sm font-serif leading-relaxed">整合 Restaurant JSON-LD
-                            結構化資料，精準鎖定台南美食搜尋流量</p>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">權限管理</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">實作分級權限 (RBAC) 與自我保護機制，嚴謹控管存取</p>
                     </article>
 
                     <!-- Feature 5 -->
                     <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
                         <div
-                            class="w-14 h-14 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-shield-halved text-2xl text-red-400" aria-hidden="true"></i>
+                            class="w-14 h-14 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-database text-2xl text-yellow-400" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-display text-xl font-bold text-white mb-3">安全防護</h3>
-                        <p class="text-gray-400 text-sm font-serif leading-relaxed">CSRF Token、bcrypt 密碼雜湊、登入錯誤自動鎖定</p>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">資料完整性</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">具備樂觀鎖控制與自動版本備份，防止編輯衝突</p>
                     </article>
 
                     <!-- Feature 6 -->
                     <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
                         <div
-                            class="w-14 h-14 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-floppy-disk text-2xl text-yellow-400" aria-hidden="true"></i>
+                            class="w-14 h-14 bg-gradient-to-br from-orange/20 to-amber-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-layer-group text-2xl text-orange" aria-hidden="true"></i>
                         </div>
-                        <h3 class="font-display text-xl font-bold text-white mb-3">草稿救援</h3>
-                        <p class="text-gray-400 text-sm font-serif leading-relaxed">LocalStorage 自動儲存編輯中內容，瀏覽器崩潰也不怕</p>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">動態版面</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">支援社群內容自適應排列，並透過設定檔驅動版面</p>
+                    </article>
+
+                    <!-- Feature 7 -->
+                    <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
+                        <div
+                            class="w-14 h-14 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-magnifying-glass text-2xl text-green-400" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">在地 SEO</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">整合 Restaurant JSON-LD
+                            結構化資料，針對台南美食搜尋</p>
+                    </article>
+
+                    <!-- Feature 8 -->
+                    <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
+                        <div
+                            class="w-14 h-14 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-lock text-2xl text-red-400" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">系統安全</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">驗證檔案真實類型並防止路徑遍歷，結合 CSRF 防禦</p>
+                    </article>
+
+                    <!-- Feature 9 -->
+                    <article class="neo-glass p-8 rounded-2xl card-hover-effect group">
+                        <div
+                            class="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-server text-2xl text-blue-400" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-3">自動化維運</h3>
+                        <p class="text-gray-400 text-sm font-serif leading-relaxed">測試站自動阻擋索引，並整合 Server-side 清除快取機制</p>
                     </article>
                 </div>
             </div>

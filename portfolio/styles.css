@@ -1347,3 +1347,92 @@ body.hover-link .cursor-outline {
         justify-content: flex-start !important;
     }
 }
+
+/* ===========================================
+   Active Navigation Highlight
+   =========================================== */
+.nav-active {
+    color: var(--color-gold) !important;
+    position: relative;
+}
+
+.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-cyan));
+    animation: nav-pulse 2s ease-in-out infinite;
+}
+
+@keyframes nav-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ===========================================
+   Image Loading States - 漸進載入
+   =========================================== */
+.img-skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.img-fade-in {
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-smooth);
+}
+
+.img-fade-in.loaded {
+    opacity: 1;
+}
+
+/* ===========================================
+   Scroll Indicator - Clickable Enhancement
+   =========================================== */
+.animate-bounce {
+    transition: transform 0.3s var(--ease-smooth), text-shadow 0.3s;
+}
+
+.animate-bounce:hover {
+    transform: translateY(4px);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.animate-bounce:active {
+    transform: translateY(8px);
+}
+
+/* ===========================================
+   Mobile Nav Focus Styles
+   =========================================== */
+.mobile-nav-dropdown a:focus {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: -2px;
+}
+
+.mobile-menu-btn:focus {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 2px;
+}

@@ -1,0 +1,17 @@
+{
+  "browser": true,
+  "esversion": 6,
+  "node": false,
+  "undef": true,
+  "unused": true,
+  "curly": true,
+  "eqeqeq": true,
+  "freeze": true,
+  "futurehostile": true,
+  "latedef": "nofunc",
+  "noarg": true,
+  "nocomma": true,
+  "nonew": true,
+  "singleGroups": true,
+  "varstmt": true
+}

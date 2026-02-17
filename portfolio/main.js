@@ -1,507 +1,195 @@
-/**
- * =============================================
- *  Good Eats | 優化版互動腳本
- *  Enhanced with micro-interactions
- * =============================================
- */
 
-(function () {
-  'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Custom Cursor Logic (Fix: Track mouse movement) ---
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
 
-  // ===========================================
-  // Utilities
-  // ===========================================
+    // IMPORTANT: Check if elements exist before proceeding
+    if (cursorDot && cursorOutline) {
+        // Track mouse position
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Dot follows immediately
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+        });
 
-  function isTouchDevice() {
-    return ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-  }
-
-  function lerp(start, end, factor) {
-    return start + (end - start) * factor;
-  }
-
-  // ===========================================
-  // Custom Cursor Module (放大鏡版本 - 優化流暢度)
-  // ===========================================
-  const CustomCursor = {
-    cursorDot: null,
-    cursorOutline: null,
-    mouseX: 0,
-    mouseY: 0,
-    outlineX: 0,
-    outlineY: 0,
-    rafId: null,
-    isEnabled: false,
-
-    init() {
-      if (isTouchDevice()) {
-        document.body.style.cursor = 'auto';
-        return;
-      }
-
-      this.cursorDot = document.querySelector('.cursor-dot');
-      this.cursorOutline = document.querySelector('.cursor-outline');
-
-      if (!this.cursorDot || !this.cursorOutline) return;
-
-      this.isEnabled = true;
-      this.bindEvents();
-      this.animate();
-    },
-
-    bindEvents() {
-      // 使用 requestAnimationFrame 節流滑鼠事件
-      let ticking = false;
-      document.addEventListener('mousemove', (e) => {
-        if (!ticking) {
-          this.mouseX = e.clientX;
-          this.mouseY = e.clientY;
-          ticking = true;
-          requestAnimationFrame(() => { ticking = false; });
+        // Loop for smoother outline delay
+        const animateCursor = () => {
+             // Linear interpolation for smooth delay effect
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            
+            cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
+            
+            requestAnimationFrame(animateCursor);
+        };
+        requestAnimationFrame(animateCursor);
+        
+        // --- Hover Effects Handling ---
+        // We use classes on body to easily change cursor style globally
+        const handleHover = (selector, className) => {
+             document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add(className));
+                el.addEventListener('mouseleave', () => document.body.classList.remove(className));
+            });
+        };
+        
+        // Links and Buttons
+        handleHover('a, button, [role="button"]', 'hover-link');
+        
+        // Split Panes (Food vs Tech)
+        // Note: Using attributes to target specific panes
+        const foodPane = document.querySelector('[data-side="food"]');
+        const techPane = document.querySelector('[data-side="tech"]');
+        
+        if (foodPane) {
+            foodPane.addEventListener('mouseenter', () => document.body.classList.add('hover-food'));
+            foodPane.addEventListener('mouseleave', () => document.body.classList.remove('hover-food'));
         }
-      }, { passive: true });
-
-      // 可點擊元素 hover 效果
-      const clickables = document.querySelectorAll('a, button, [role="button"], .card-hover-effect, input, textarea');
-      clickables.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          document.body.classList.add('hover-link');
-        }, { passive: true });
-        el.addEventListener('mouseleave', () => {
-          document.body.classList.remove('hover-link');
-        }, { passive: true });
-      });
-
-      // 離開/進入視窗
-      document.addEventListener('mouseout', (e) => {
-        if (e.relatedTarget === null) {
-          this.cursorDot.style.opacity = '0';
-          this.cursorOutline.style.opacity = '0';
+        
+        if (techPane) {
+            techPane.addEventListener('mouseenter', () => document.body.classList.add('hover-tech'));
+            techPane.addEventListener('mouseleave', () => document.body.classList.remove('hover-tech'));
         }
-      });
-
-      document.addEventListener('mouseover', () => {
-        this.cursorDot.style.opacity = '1';
-        this.cursorOutline.style.opacity = '1';
-      });
-    },
-
-    animate() {
-      if (!this.isEnabled) return;
-
-      // Dot 跟隨滑鼠 - 使用 transform 進行 GPU 加速
-      this.cursorDot.style.transform = `translate(${this.mouseX - 12}px, ${this.mouseY - 12}px) translate3d(0,0,0)`;
-
-      // Outline 平滑跟隨 - 提高 lerp 因子以加快追蹤速度
-      this.outlineX = lerp(this.outlineX, this.mouseX, 0.18);
-      this.outlineY = lerp(this.outlineY, this.mouseY, 0.18);
-
-      this.cursorOutline.style.transform = `translate(${this.outlineX - 30}px, ${this.outlineY - 30}px) translate3d(0,0,0)`;
-
-      this.rafId = requestAnimationFrame(() => this.animate());
-    },
-
-    destroy() {
-      if (this.rafId) cancelAnimationFrame(this.rafId);
     }
-  };
 
-  // ===========================================
-  // Split Pane Interaction
-  // ===========================================
-  const SplitPaneInteraction = {
-    init() {
-      const foodPane = document.querySelector('[data-side="food"]');
-      const techPane = document.querySelector('[data-side="tech"]');
 
-      if (!foodPane || !techPane) return;
+    // --- Admin Dashboard Slider ---
+    const sliderContainer = document.getElementById('admin-slider');
+    if (sliderContainer) {
+        const slides = sliderContainer.querySelectorAll('img.slide'); // Be specific
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        const intervalTime = 4000;
 
-      // Food Pane
-      foodPane.addEventListener('mouseenter', () => {
-        document.body.classList.add('hover-food');
-        document.body.classList.remove('hover-link');
-      }, { passive: true });
-      foodPane.addEventListener('mouseleave', () => {
-        document.body.classList.remove('hover-food');
-      }, { passive: true });
+        // Initialize
+        slides.forEach((slide, index) => {
+            // Force object-cover via JS if CSS fails, though CSS is better
+            slide.style.objectFit = 'cover'; 
+            slide.style.objectPosition = 'top';
+            
+            slide.classList.remove('translate-x-0', '-translate-x-full', 'translate-x-full', 'transition-transform', 'duration-1000');
+            slide.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
+            
+            // Ensure proper stacking context just in case
+            slide.style.zIndex = '10';
 
-      // Tech Pane
-      techPane.addEventListener('mouseenter', () => {
-        document.body.classList.add('hover-tech');
-        document.body.classList.remove('hover-link');
-      }, { passive: true });
-      techPane.addEventListener('mouseleave', () => {
-        document.body.classList.remove('hover-tech');
-      }, { passive: true });
-    }
-  };
-
-  // ===========================================
-  // Scroll Reveal Animation
-  // ===========================================
-  const ScrollReveal = {
-    observer: null,
-
-    init() {
-      if (!('IntersectionObserver' in window)) {
-        // Fallback: 直接顯示所有元素
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-          el.classList.add('is-visible');
-        });
-        return;
-      }
-
-      const options = {
-        root: null,
-        rootMargin: '0px 0px -100px 0px',
-        threshold: 0.1
-      };
-
-      this.observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            this.observer.unobserve(entry.target);
-          }
-        });
-      }, options);
-
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-        this.observer.observe(el);
-      });
-    }
-  };
-
-  // ===========================================
-  // Magnetic Button Effect
-  // ===========================================
-  const MagneticButtons = {
-    init() {
-      if (isTouchDevice()) return;
-
-      document.querySelectorAll('.magnetic-btn').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-
-          btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            if (index === 0) {
+                slide.classList.add('translate-x-0');
+                slide.style.zIndex = '20'; // Current on top initially
+            } else {
+                slide.classList.add('translate-x-full');
+            }
         });
 
-        btn.addEventListener('mouseleave', () => {
-          btn.style.transform = 'translate(0, 0)';
-        });
-      });
-    }
-  };
+        console.log(`Admin Slider Initialized: ${totalSlides} slides found.`);
 
-  // ===========================================
-  // Tilt Effect for Cards
-  // ===========================================
-  const TiltEffect = {
-    init() {
-      if (isTouchDevice()) return;
+        const nextSlide = () => {
+            const currentSlide = slides[currentIndex];
+            const nextIndex = (currentIndex + 1) % totalSlides;
+            const nextSlideEl = slides[nextIndex];
 
-      document.querySelectorAll('.card-hover-effect').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
+            // Debug
+            console.log(`Transition: ${currentIndex} -> ${nextIndex}`);
 
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
+            // 0. Setup Steps (Ensure starting positions)
+            // Ensure Next slide is definitely on the right and ready
+            // We temporarily disable transition to force it to start position if it wasn't there
+            if (!nextSlideEl.classList.contains('translate-x-full')) {
+                nextSlideEl.classList.remove('transition-transform', 'duration-1000', 'ease-in-out');
+                nextSlideEl.classList.remove('translate-x-0', '-translate-x-full');
+                nextSlideEl.classList.add('translate-x-full');
+                void nextSlideEl.offsetWidth; // Apply
+                nextSlideEl.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
+            }
 
-          const rotateX = (y - centerY) / 20;
-          const rotateY = (centerX - x) / 20;
+            // 1. Trigger Animation
+            // Move Current Left
+            currentSlide.style.zIndex = '10'; // Move to back so Next can slide OVER it if needed? No, side by side.
+            currentSlide.classList.remove('translate-x-0');
+            currentSlide.classList.add('-translate-x-full');
 
-          card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
+            // Move Next Center
+            nextSlideEl.style.zIndex = '20'; // Bring to front
+            nextSlideEl.classList.remove('translate-x-full');
+            nextSlideEl.classList.add('translate-x-0');
 
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
-        });
-      });
-    }
-  };
+            // 2. Cleanup Old Slide
+            setTimeout(() => {
+                // Disable transition
+                currentSlide.classList.remove('transition-transform', 'duration-1000', 'ease-in-out');
+                
+                // Teleport to Right
+                currentSlide.classList.remove('-translate-x-full');
+                currentSlide.classList.add('translate-x-full');
+                
+                // Force Reflow
+                void currentSlide.offsetWidth;
+                
+                // Re-enable transition
+                currentSlide.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
+                
+                currentSlide.style.zIndex = '10';
+            }, 1000); // 1s matches duration
 
-  // ===========================================
-  // Smooth Scroll
-  // ===========================================
-  const SmoothScroll = {
-    init() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          const targetId = anchor.getAttribute('href');
-          if (targetId === '#') return;
-
-          const target = document.querySelector(targetId);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            history.pushState(null, null, targetId);
-          }
-        });
-      });
-    }
-  };
-
-  // ===========================================
-  // Parallax Background
-  // ===========================================
-  const ParallaxBG = {
-    init() {
-      if (isTouchDevice()) return;
-
-      const parallaxElements = document.querySelectorAll('.skew-bg-image');
-
-      window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        parallaxElements.forEach(el => {
-          const speed = 0.3;
-          el.style.transform = `skewX(10deg) scale(1.1) translateY(${scrollY * speed}px)`;
-        });
-      }, { passive: true });
-    }
-  };
-
-  // ===========================================
-  // Counter Animation
-  // ===========================================
-  const CounterAnimation = {
-    init() {
-      const counters = document.querySelectorAll('[data-count]');
-      if (!counters.length) return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.animate(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-
-      counters.forEach(counter => observer.observe(counter));
-    },
-
-    animate(el) {
-      const target = parseInt(el.dataset.count, 10);
-      const duration = 2000;
-      const start = 0;
-      const startTime = performance.now();
-
-      const update = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Easing
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(start + (target - start) * easeOutQuart);
-
-        el.textContent = current;
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        } else {
-          el.textContent = target;
-        }
-      };
-
-      requestAnimationFrame(update);
-    }
-  };
-
-  // ===========================================
-  // Typing Effect
-  // ===========================================
-  const TypingEffect = {
-    init() {
-      const typeElements = document.querySelectorAll('[data-type]');
-      typeElements.forEach(el => {
-        const text = el.dataset.type;
-        const speed = parseInt(el.dataset.typeSpeed, 10) || 100;
-        el.textContent = '';
-
-        let i = 0;
-        const type = () => {
-          if (i < text.length) {
-            el.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-          }
+            currentIndex = nextIndex;
         };
 
-        // Start when visible
-        const observer = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) {
-            type();
-            observer.disconnect();
-          }
+        setInterval(nextSlide, intervalTime);
+    }
+
+    // --- Smooth Scroll for Anchor Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || !targetId) return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
-        observer.observe(el);
-      });
+    });
+
+    // --- Scroll to Top Button Visibility ---
+    const scrollTopBtn = document.getElementById('scroll-to-top');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.visibility = 'visible';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.visibility = 'hidden';
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     }
-  };
 
-  // ===========================================
-  // Mobile Navigation Toggle
-  // ===========================================
-  const MobileNav = {
-    btn: null,
-    dropdown: null,
-    isOpen: false,
-
-    init() {
-      this.btn = document.getElementById('mobile-menu-btn');
-      this.dropdown = document.getElementById('mobile-nav-dropdown');
-      if (!this.btn || !this.dropdown) return;
-
-      this.btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.toggle();
-      });
-
-      // Close when clicking nav links
-      this.dropdown.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => this.close());
-      });
-
-      // Close when clicking outside
-      document.addEventListener('click', (e) => {
-        if (this.isOpen && !this.btn.contains(e.target) && !this.dropdown.contains(e.target)) {
-          this.close();
-        }
-      });
-
-      // Close on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && this.isOpen) this.close();
-      });
-
-      // Close on scroll
-      let scrollTimer;
-      window.addEventListener('scroll', () => {
-        if (this.isOpen) {
-          clearTimeout(scrollTimer);
-          scrollTimer = setTimeout(() => this.close(), 100);
-        }
-      }, { passive: true });
-    },
-
-    toggle() {
-      this.isOpen = !this.isOpen;
-      this.dropdown.classList.toggle('is-open', this.isOpen);
-      this.btn.setAttribute('aria-expanded', String(this.isOpen));
-      const icon = this.btn.querySelector('i');
-      if (icon) {
-        icon.className = this.isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-      }
-    },
-
-    close() {
-      if (!this.isOpen) return;
-      this.isOpen = false;
-      this.dropdown.classList.remove('is-open');
-      this.btn.setAttribute('aria-expanded', 'false');
-      const icon = this.btn.querySelector('i');
-      if (icon) {
-        icon.className = 'fa-solid fa-bars';
-      }
+    // --- Mobile Menu Toggle ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileDropdown = document.getElementById('mobile-nav-dropdown');
+    
+    if (mobileMenuBtn && mobileDropdown) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileDropdown.classList.toggle('hidden');
+        });
     }
-  };
-
-  // ===========================================
-  // Initialize
-  // ===========================================
-  function init() {
-    CustomCursor.init();
-    SplitPaneInteraction.init();
-    MobileNav.init();
-    ScrollReveal.init();
-    MagneticButtons.init();
-    TiltEffect.init();
-    SmoothScroll.init();
-    ParallaxBG.init();
-    CounterAnimation.init();
-    TypingEffect.init();
-
-    // Add reveal classes to elements
-    document.querySelectorAll('#stack .neo-glass').forEach((el, i) => {
-      el.classList.add('reveal');
-      el.style.transitionDelay = `${i * 0.1}s`;
-    });
-
-    document.querySelectorAll('#features .neo-glass').forEach((el, i) => {
-      el.classList.add('reveal');
-      el.style.transitionDelay = `${i * 0.1}s`;
-    });
-
-    document.querySelectorAll('#timeline article').forEach((el, i) => {
-      el.classList.add('reveal');
-      el.style.transitionDelay = `${i * 0.15}s`;
-    });
-
-    // Re-observe after adding classes
-    ScrollReveal.init();
-  }
-
-  // ===========================================
-  // Scroll to Top Button
-  // ===========================================
-  const ScrollToTop = {
-    button: null,
-    threshold: 200,
-
-    init() {
-      this.button = document.getElementById('scroll-to-top');
-      if (!this.button) return;
-
-      this.bindEvents();
-      // Check initial scroll position
-      this.checkScroll();
-    },
-
-    checkScroll() {
-      if (window.scrollY > this.threshold) {
-        this.button.classList.add('visible');
-      } else {
-        this.button.classList.remove('visible');
-      }
-    },
-
-    bindEvents() {
-      // Show/hide button based on scroll position (throttled)
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            this.checkScroll();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }, { passive: true });
-
-      // Click to scroll to top
-      this.button.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  };
-
-  // DOM Ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      init();
-      ScrollToTop.init();
-    });
-  } else {
-    init();
-    ScrollToTop.init();
-  }
-
-  window.addEventListener('beforeunload', () => {
-    CustomCursor.destroy();
-  });
-
-})();
+});

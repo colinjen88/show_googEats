@@ -114,11 +114,11 @@
 
     /* Scanline Effect */
     .scanline-bar {
-        @apply absolute left-0 right-0 h-1 opacity-80 pointer-events-none z-20;
+        @apply absolute top-0 left-0 right-0 h-1 opacity-80 pointer-events-none z-20;
         background: rgba(0, 240, 255, 0.5);
         box-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
         animation: scanline 3s linear infinite;
-        transform: skewX(10deg);
+        will-change: transform;
     }
 }
 
@@ -203,11 +203,11 @@
 
 @keyframes scanline {
     0% {
-        top: -20%;
+        transform: translateY(-20px);
     }
 
     100% {
-        top: 120%;
+        transform: translateY(100vh);
     }
 }
 

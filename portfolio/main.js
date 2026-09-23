@@ -1,15 +1,17 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Custom Cursor Logic (Fix: Track mouse movement) ---
+    // --- Custom Cursor Logic (Only on devices with fine pointer / mouse) ---
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
-    let mouseX = 0;
-    let mouseY = 0;
-    let outlineX = 0;
-    let outlineY = 0;
 
-    // IMPORTANT: Check if elements exist before proceeding
-    if (cursorDot && cursorOutline) {
+    if (hasFinePointer && cursorDot && cursorOutline) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
+        let cursorFrame = null;
+
         // Track mouse position
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -17,26 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Dot follows immediately
             cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-        });
+            if (cursorFrame === null) cursorFrame = requestAnimationFrame(animateCursor);
+        }, { passive: true });
 
-        // Loop for smoother outline delay
+        // Only animate while the outline is catching up with the pointer.
         const animateCursor = () => {
-             // Linear interpolation for smooth delay effect
             outlineX += (mouseX - outlineX) * 0.15;
             outlineY += (mouseY - outlineY) * 0.15;
             
             cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
             
-            requestAnimationFrame(animateCursor);
+            if (Math.abs(mouseX - outlineX) + Math.abs(mouseY - outlineY) > 0.5) {
+                cursorFrame = requestAnimationFrame(animateCursor);
+            } else {
+                cursorFrame = null;
+            }
         };
-        requestAnimationFrame(animateCursor);
         
         // --- Hover Effects Handling ---
-        // We use classes on body to easily change cursor style globally
         const handleHover = (selector, className) => {
-             document.querySelectorAll(selector).forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add(className));
-                el.addEventListener('mouseleave', () => document.body.classList.remove(className));
+            document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add(className), { passive: true });
+                el.addEventListener('mouseleave', () => document.body.classList.remove(className), { passive: true });
             });
         };
         
@@ -44,104 +48,76 @@ document.addEventListener('DOMContentLoaded', () => {
         handleHover('a, button, [role="button"]', 'hover-link');
         
         // Split Panes (Food vs Tech)
-        // Note: Using attributes to target specific panes
         const foodPane = document.querySelector('[data-side="food"]');
         const techPane = document.querySelector('[data-side="tech"]');
         
         if (foodPane) {
-            foodPane.addEventListener('mouseenter', () => document.body.classList.add('hover-food'));
-            foodPane.addEventListener('mouseleave', () => document.body.classList.remove('hover-food'));
+            foodPane.addEventListener('mouseenter', () => document.body.classList.add('hover-food'), { passive: true });
+            foodPane.addEventListener('mouseleave', () => document.body.classList.remove('hover-food'), { passive: true });
         }
         
         if (techPane) {
-            techPane.addEventListener('mouseenter', () => document.body.classList.add('hover-tech'));
-            techPane.addEventListener('mouseleave', () => document.body.classList.remove('hover-tech'));
+            techPane.addEventListener('mouseenter', () => document.body.classList.add('hover-tech'), { passive: true });
+            techPane.addEventListener('mouseleave', () => document.body.classList.remove('hover-tech'), { passive: true });
         }
     }
-
 
     // --- Admin Dashboard Slider ---
     const sliderContainer = document.getElementById('admin-slider');
     if (sliderContainer) {
-        const slides = sliderContainer.querySelectorAll('img.slide'); // Be specific
+        const slides = sliderContainer.querySelectorAll('img.slide');
         let currentIndex = 0;
         const totalSlides = slides.length;
         const intervalTime = 4000;
-
-        // Initialize
-        slides.forEach((slide, index) => {
-            // Force object-cover via JS if CSS fails, though CSS is better
-            slide.style.objectFit = 'cover'; 
-            slide.style.objectPosition = 'top';
-            
-            slide.classList.remove('translate-x-0', '-translate-x-full', 'translate-x-full', 'transition-transform', 'duration-1000');
-            slide.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
-            
-            // Ensure proper stacking context just in case
-            slide.style.zIndex = '10';
-
-            if (index === 0) {
-                slide.classList.add('translate-x-0');
-                slide.style.zIndex = '20'; // Current on top initially
-            } else {
-                slide.classList.add('translate-x-full');
-            }
-        });
-
-        console.log(`Admin Slider Initialized: ${totalSlides} slides found.`);
+        let sliderTimer = null;
 
         const nextSlide = () => {
             const currentSlide = slides[currentIndex];
             const nextIndex = (currentIndex + 1) % totalSlides;
             const nextSlideEl = slides[nextIndex];
+            nextSlideEl.style.zIndex = '20';
+            currentSlide.style.zIndex = '10';
+            nextSlideEl.classList.replace('translate-x-full', 'translate-x-0');
+            currentSlide.classList.replace('translate-x-0', '-translate-x-full');
 
-            // Debug
-            console.log(`Transition: ${currentIndex} -> ${nextIndex}`);
-
-            // 0. Setup Steps (Ensure starting positions)
-            // Ensure Next slide is definitely on the right and ready
-            // We temporarily disable transition to force it to start position if it wasn't there
-            if (!nextSlideEl.classList.contains('translate-x-full')) {
-                nextSlideEl.classList.remove('transition-transform', 'duration-1000', 'ease-in-out');
-                nextSlideEl.classList.remove('translate-x-0', '-translate-x-full');
-                nextSlideEl.classList.add('translate-x-full');
-                void nextSlideEl.offsetWidth; // Apply
-                nextSlideEl.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
-            }
-
-            // 1. Trigger Animation
-            // Move Current Left
-            currentSlide.style.zIndex = '10'; // Move to back so Next can slide OVER it if needed? No, side by side.
-            currentSlide.classList.remove('translate-x-0');
-            currentSlide.classList.add('-translate-x-full');
-
-            // Move Next Center
-            nextSlideEl.style.zIndex = '20'; // Bring to front
-            nextSlideEl.classList.remove('translate-x-full');
-            nextSlideEl.classList.add('translate-x-0');
-
-            // 2. Cleanup Old Slide
-            setTimeout(() => {
-                // Disable transition
+            currentSlide.addEventListener('transitionend', (event) => {
+                if (event.target !== currentSlide || event.propertyName !== 'transform') return;
                 currentSlide.classList.remove('transition-transform', 'duration-1000', 'ease-in-out');
-                
-                // Teleport to Right
-                currentSlide.classList.remove('-translate-x-full');
-                currentSlide.classList.add('translate-x-full');
-                
-                // Force Reflow
-                void currentSlide.offsetWidth;
-                
-                // Re-enable transition
-                currentSlide.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
-                
-                currentSlide.style.zIndex = '10';
-            }, 1000); // 1s matches duration
+                currentSlide.classList.replace('-translate-x-full', 'translate-x-full');
+                requestAnimationFrame(() => {
+                    currentSlide.classList.add('transition-transform', 'duration-1000', 'ease-in-out');
+                });
+            }, { once: true });
 
             currentIndex = nextIndex;
         };
 
-        setInterval(nextSlide, intervalTime);
+        const startSlider = () => {
+            if (!sliderTimer) sliderTimer = setInterval(nextSlide, intervalTime);
+        };
+
+        const stopSlider = () => {
+            if (sliderTimer) {
+                clearInterval(sliderTimer);
+                sliderTimer = null;
+            }
+        };
+
+        // Pause slider when out of viewport to save CPU / battery
+        if (totalSlides > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startSlider();
+                    } else {
+                        stopSlider();
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(sliderContainer);
+        } else if (totalSlides > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            startSlider();
+        }
     }
 
     // --- Smooth Scroll for Anchor Links ---
@@ -171,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollTopBtn.style.opacity = '0';
                 scrollTopBtn.style.visibility = 'hidden';
             }
-        });
+        }, { passive: true });
 
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
@@ -188,8 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileMenuBtn && mobileDropdown) {
         mobileMenuBtn.addEventListener('click', () => {
             const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-            mobileDropdown.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', String(!isExpanded));
+            mobileDropdown.classList.toggle('is-open', !isExpanded);
+        });
+        mobileDropdown.addEventListener('click', (event) => {
+            if (event.target.closest('a')) {
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileDropdown.classList.remove('is-open');
+            }
         });
     }
 });

@@ -60,11 +60,13 @@ portfolio/
 │   ├── favicon.svg          # 網站圖示
 │   └── style_notes.md       # 設計風格筆記
 ├── dist/
-│   └── output.css           # 編譯後的生產環境 CSS (Minified)
+│   └── style.min.css        # 合併後的生產環境 CSS
 ├── src/
 │   └── input.css            # Tailwind CSS 原始碼與自訂樣式
 ├── index.html               # 主頁面 (SEO & A11y Optimized)
 ├── main.js                  # 互動邏輯 (游標、滾動、動畫)
+├── main.min.js              # 建置後的互動邏輯
+├── build.mjs                # CSS/JS 建置與字型子集更新
 ├── styles.css               # 額外的自訂 CSS 特效
 ├── tailwind.config.js       # Tailwind 設定檔
 └── package.json             # 專案依賴與腳本
@@ -77,17 +79,16 @@ portfolio/
 npm install
 ```
 
-### 2. 開發模式 (編譯 CSS 並監聽變更)
+### 2. 建置頁面資源
 ```bash
-npm run watch:css
+npm run build
 ```
 
-### 3. 建置生產版本 CSS
-```bash
-npm run build:css
-```
+此指令會產生合併的 `dist/style.min.css`、`main.min.js`，並根據頁面文字更新中文字型子集。修改 CSS、JS 或頁面文案後請重新執行。
 
-### 4. 啟動本地伺服器
+正式站由 `colinjen88/goodeats` 儲存庫部署。發布作品集時，需將本專案建置後的 `index.html`、`main.min.js`、`dist/style.min.css`、`.htaccess` 與頁面引用的圖片複製到該儲存庫的 `public/portfolio/`，再由正式站部署流程發布。
+
+### 3. 啟動本地伺服器
 可以使用 `serve` 或 `Live Server`：
 ```bash
 npm run dev

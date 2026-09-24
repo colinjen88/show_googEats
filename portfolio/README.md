@@ -90,6 +90,8 @@ npm run build
 
 此作品集的主要展示網址是 `gowork.run/showGoodEats/`。發布時將本專案建置後的 `index.html`、`main.min.js`、`dist/style.min.css`、`.htaccess` 與頁面引用的圖片同步到 VPS 該路徑。`goodeats.asia/portfolio/` 是另外提供的副本。
 
+Cloudflare 的 `Good Eats 靜態首頁 HTML` Cache Rule 只套用於 `gowork.run` 的 `/showGoodEats/` 與 `/showGoodEats/index.html` GET 請求，Edge TTL 採用來源標頭。此目錄的 `.htaccess` 設定瀏覽器 `max-age=0`、邊緣 `s-maxage=60`；部署後最多約一分鐘會自動取得新版。若需立即生效，應在 Cloudflare 清除這兩個網址的快取。
+
 ### 3. 啟動本地伺服器
 可以使用 `serve` 或 `Live Server`：
 ```bash

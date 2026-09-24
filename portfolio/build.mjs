@@ -2,13 +2,19 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { transform } from 'esbuild';
 
-const [tailwind, custom, javascript] = await Promise.all([
+const [tailwind, custom, icons, javascript] = await Promise.all([
     readFile('dist/output.css', 'utf8'),
     readFile('styles.css', 'utf8'),
+    readFile('src/icons.css', 'utf8'),
     readFile('main.js', 'utf8'),
 ]);
 
-const css = await transform(`${tailwind}\n${custom}`, { loader: 'css', minify: true });
+let versionedIcons = icons;
+for (const filename of ['fa-solid-900-subset.woff2', 'fa-brands-400-subset.woff2']) {
+    const digest = createHash('sha256').update(await readFile(`assets/fonts/${filename}`)).digest('hex').slice(0, 12);
+    versionedIcons = versionedIcons.replaceAll(filename, `${filename}?v=${digest}`);
+}
+const css = await transform(`${tailwind}\n${custom}\n${versionedIcons}`, { loader: 'css', minify: true });
 const js = await transform(javascript, { loader: 'js', minify: true, target: 'es2017' });
 await Promise.all([
     writeFile('dist/style.min.css', css.code),

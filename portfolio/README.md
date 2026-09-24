@@ -2,7 +2,7 @@
 
 > 一個結合現代化前端體驗、極致視覺設計與 SEO 優化的技術展示頁面。
 
-專案展示網址：[Live Demo](https://goodeats.asia/portfolio/)
+專案展示網址：[Live Demo](https://gowork.run/showGoodEats/)
 
 ## 📖 專案概述 (Overview)
 
@@ -86,7 +86,9 @@ npm run build
 
 此指令會產生合併的 `dist/style.min.css`、`main.min.js`，並根據頁面文字更新中文字型子集。修改 CSS、JS 或頁面文案後請重新執行。
 
-正式站由 `colinjen88/goodeats` 儲存庫部署。發布作品集時，需將本專案建置後的 `index.html`、`main.min.js`、`dist/style.min.css`、`.htaccess` 與頁面引用的圖片複製到該儲存庫的 `public/portfolio/`，再由正式站部署流程發布。
+頁面圖示使用本地 Font Awesome 6.4.0 精簡字型；新增圖示時須同步更新 `src/icons.css` 與 `assets/fonts/` 子集。授權條款見 `assets/fonts/LICENSE.txt`。
+
+此作品集的主要展示網址是 `gowork.run/showGoodEats/`。發布時將本專案建置後的 `index.html`、`main.min.js`、`dist/style.min.css`、`.htaccess` 與頁面引用的圖片同步到 VPS 該路徑。`goodeats.asia/portfolio/` 是另外提供的副本。
 
 ### 3. 啟動本地伺服器
 可以使用 `serve` 或 `Live Server`：

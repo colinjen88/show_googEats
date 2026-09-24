@@ -14,9 +14,7 @@ for (const filename of ['fa-solid-900-subset.woff2', 'fa-brands-400-subset.woff2
     const digest = createHash('sha256').update(await readFile(`assets/fonts/${filename}`)).digest('hex').slice(0, 12);
     versionedIcons = versionedIcons.replaceAll(filename, `${filename}?v=${digest}`);
 }
-const mobileHeroDigest = createHash('sha256').update(await readFile('assets/hero-food-mobile.webp')).digest('hex').slice(0, 12);
-const versionedCustom = custom.replaceAll('hero-food-mobile.webp', `hero-food-mobile.webp?v=${mobileHeroDigest}`);
-const css = await transform(`${tailwind}\n${versionedCustom}\n${versionedIcons}`, { loader: 'css', minify: true });
+const css = await transform(`${tailwind}\n${custom}\n${versionedIcons}`, { loader: 'css', minify: true });
 const js = await transform(javascript, { loader: 'js', minify: true, target: 'es2017' });
 await Promise.all([
     writeFile('dist/style.min.css', css.code),

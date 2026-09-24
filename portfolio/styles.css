@@ -555,17 +555,11 @@ body.hover-link .cursor-outline {
 /* Mobile: No skew needed, simpler positioning */
 @media (max-width: 767px) {
     .skew-bg-image {
-        transform: none;
-        transition: none;
-        will-change: auto;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-
-    .split-pane[data-side="food"] .skew-bg-image {
-        background-image: url('../assets/hero-food-mobile.webp') !important;
+        transform: scale(1.1);
+        top: -5%;
+        left: -5%;
+        right: -5%;
+        bottom: -5%;
     }
 }
 

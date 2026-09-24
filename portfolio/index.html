@@ -34,7 +34,8 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="assets/hero-food.webp?v=035c3ff1d859" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/hero-food-mobile.webp?v=fdb916c84091" type="image/webp" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/hero-food.webp?v=035c3ff1d859" type="image/webp" media="(min-width: 768px)" fetchpriority="high">
 
     <!-- Optimized Non-render-blocking Google Fonts -->
     <link rel="stylesheet"
@@ -51,7 +52,7 @@
     </noscript>
 
     <!-- Combined & Minified Production Stylesheet -->
-    <link rel="stylesheet" href="dist/style.min.css?v=a104706549ab">
+    <link rel="stylesheet" href="dist/style.min.css?v=b54a81b44477">
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#050505">
@@ -234,20 +235,20 @@
         </section>
 
         <!-- TECH STACK SECTION -->
-        <section id="stack" class="py-32 relative bg-dark overflow-hidden" aria-labelledby="stack-title">
+        <section id="stack" class="py-16 md:py-32 scroll-mt-24 relative bg-dark overflow-hidden" aria-labelledby="stack-title">
             <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan/5 rounded-full blur-[120px]"
                 aria-hidden="true"></div>
             <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px]"
                 aria-hidden="true"></div>
 
             <div class="container mx-auto px-6 sm:px-12 relative z-10">
-                <div class="flex flex-col md:flex-row items-end justify-between mb-16 border-b border-white/10 pb-8">
+                <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 md:mb-16 border-b border-white/10 pb-6 md:pb-8">
                     <h2 id="stack-title"
                         class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white">
                         THE<br><span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-orange to-gold">KITCHEN.</span>
                     </h2>
-                    <p class="text-gray-400 max-w-sm mt-4 md:mt-0 text-right font-serif text-sm">
+                    <p class="text-gray-400 max-w-sm mt-4 md:mt-0 text-left md:text-right font-serif text-sm">
                         選用合適的技術堆疊，<br>確保穩定的效能表現。
                     </p>
                 </div>
